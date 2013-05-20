@@ -29,6 +29,8 @@ Usage
 The bare bones:
 
 ```html
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="typeahead.js"></script>
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src="angular-typeahead.js"></script>
 <script>
