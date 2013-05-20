@@ -1,5 +1,5 @@
-angular.module('angular-typeahead', [])
-  .directive('ng-typeahead', function () {
+angular.module('siyfion.ngTypeahead', [])
+  .directive('ngTypeahead', function () {
     return {
       restrict: 'C',
       scope: {

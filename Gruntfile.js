@@ -6,8 +6,7 @@ module.exports = function (grunt) {
     clean: {
       files: {
         src: [
-          'tmp_angular-typeahead.js',
-          'angular-typeahead.min.js'
+          'tmp_angular-typeahead.js'
         ]
       }
     },
@@ -31,5 +30,5 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-uglify');
 
   // Default task(s).
-  grunt.registerTask('default', ['clean', 'ngmin', 'uglify']);
+  grunt.registerTask('default', ['ngmin', 'uglify', 'clean']);
 };
