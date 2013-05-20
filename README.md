@@ -1,7 +1,9 @@
-angular-typeahead
+ngTypeahead: A Twitter Typeahead directive
 =================
 
-An Angular.js wrapper around the Twitter Typeahead library.
+A simple Angular.js directive wrapper around the Twitter Typeahead library.
+
+License: [MIT](http://www.opensource.org/licenses/mit-license.php)
 
 Getting Started
 ---------------
@@ -14,7 +16,53 @@ Preferred method:
 Other methods:
 * Download latest *[angular-typeahead.js][angular-typeahead.js]* or *[angular-typeahead.min.js][angular-typeahead.min.js]*.
 
-**Note:** angular-typeahead.js has dependencies on [Angular.js][angularjs] and [jQuery][jquery] 1.9+, which must be loaded before *angular-typeahead.js*.
+**Note:** angular-typeahead.js has dependencies on the following libraries:
+* [typeahead.js][typeahead.js]
+* [Angular.js][angularjs]
+* [jQuery][jquery] 1.9+
+
+All of which must be loaded before *angular-typeahead.js*.
+
+Usage
+---------------
+
+The bare bones:
+
+```html
+<script type="text/javascript" src="angular.js"></script>
+<script type="text/javascript" src="angular-typeahead.js"></script>
+<script>
+  // Create the application and import the siyfion.ngTypeahead dependency.
+  angular.module('myApp', ['siyfion.ngTypeahead']);
+</script>
+<body ng-app="myApp">
+    <input type="text" class="ngTypeahead" datasets="exampleData"></div>
+<body>
+```
+
+```javascript
+// Define your own controller somewhere...
+function MyCtrl($scope) {
+  
+  // single dataset
+  $scope.exampleData = {
+    name: 'accounts',
+    local: ['timtrueman', 'JakeHarding', 'vskarich']
+  };
+  
+  $scope.multiExample = {
+    {
+      name: 'accounts',
+      prefetch: 'https://twitter.com/network.json',
+      remote: 'https://twitter.com/accounts?q=%QUERY'
+    },
+    {
+      name: 'trends',
+      prefetch: 'https://twitter.com/trends.json'
+    }
+  };
+};
+```
 
 
 <!-- assets -->
@@ -25,3 +73,4 @@ Other methods:
 [bower]: http://twitter.github.com/bower/
 [jQuery]: http://jquery.com/
 [angularjs]: http://angularjs.org/
+[typeahead.js]: http://twitter.github.io/typeahead.js/
