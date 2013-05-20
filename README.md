@@ -14,7 +14,7 @@ Preferred method:
 Other methods:
 * Download latest *[angular-typeahead.js][angular-typeahead.js]* or *[angular-typeahead.min.js][angular-typeahead.min.js]*.
 
-**Note:** typeahead.js has a dependency on [jQuery][jquery] 1.9+, which must be loaded before *typeahead.js*.
+**Note:** angular-typeahead.js has dependencies on [Angular.js][angularjs] and [jQuery][jquery] 1.9+, which must be loaded before *angular-typeahead.js*.
 
 
 <!-- assets -->
@@ -24,3 +24,4 @@ Other methods:
 <!-- links to third party projects -->
 [bower]: http://twitter.github.com/bower/
 [jQuery]: http://jquery.com/
+[angularjs]: http://angularjs.org/
