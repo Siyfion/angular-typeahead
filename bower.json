@@ -1,6 +1,6 @@
 {
   "name": "angular-typeahead",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "main": "./angular-typeahead.js",
   "ignore": [
     "README.md",

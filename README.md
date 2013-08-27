@@ -38,7 +38,7 @@ The bare bones:
   angular.module('myApp', ['siyfion.ngTypeahead']);
 </script>
 <body ng-app="myApp">
-    <input type="text" class="ngTypeahead" datasets="exampleData"></div>
+    <input type="text" class="ngTypeahead" datasets="exampleData" ng-model="foo"></div>
 <body>
 ```
 
@@ -63,6 +63,8 @@ function MyCtrl($scope) {
       prefetch: 'https://twitter.com/trends.json'
     }
   };
+
+  $scope.foo = null;
 };
 ```
 
