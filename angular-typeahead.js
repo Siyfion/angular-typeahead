@@ -23,6 +23,18 @@ angular.module('siyfion.ngTypeahead', [])
             scope.ngModel = datum;
           });
         });
+
+        //Updates typeahead when ngModel changed.
+        scope.$watch('ngModel', function (value) {
+            var newValue = value;
+            var valueKey = scope.datasets.valueKey;
+            if (value && 
+                valueKey &&
+                value.hasOwnProperty(valueKey)) {
+                newValue = value[valueKey];
+            }
+            element.typeahead('setQuery', newValue || '');
+        });
       }
     };
   });
