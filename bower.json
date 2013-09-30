@@ -1,8 +1,9 @@
 {
   "name": "angular-typeahead",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "main": "./angular-typeahead.js",
   "ignore": [
+    "CHANGELOG",
     "README.md",
     ".gitignore",
     "Gruntfile.js",

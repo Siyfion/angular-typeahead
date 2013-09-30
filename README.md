@@ -1,4 +1,4 @@
-ngTypeahead: A Twitter Typeahead directive
+sfTypeahead: A Twitter Typeahead directive
 =================
 
 A simple Angular.js directive wrapper around the Twitter Typeahead library.
@@ -34,24 +34,24 @@ The bare bones:
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src="angular-typeahead.js"></script>
 <script>
-  // Create the application and import the siyfion.ngTypeahead dependency.
-  angular.module('myApp', ['siyfion.ngTypeahead']);
+  // Create the application and import the siyfion.sfTypeahead dependency.
+  angular.module('myApp', ['siyfion.sfTypeahead']);
 </script>
 <body ng-app="myApp">
-    <input type="text" class="ngTypeahead" datasets="exampleData" ng-model="foo"></div>
+    <input type="text" class="sfTypeahead" datasets="exampleData" ng-model="foo"></div>
 <body>
 ```
 
 ```javascript
 // Define your own controller somewhere...
 function MyCtrl($scope) {
-  
+
   // single dataset
   $scope.exampleData = {
     name: 'accounts',
     local: ['timtrueman', 'JakeHarding', 'vskarich']
   };
-  
+
   $scope.multiExample = {
     {
       name: 'accounts',

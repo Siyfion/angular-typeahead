@@ -1,0 +1,12 @@
+CHANGELOG
+=================
+
+v0.0.5
+---------------
+* Renamed the angular module to `siyfion.sfTypeahead`.
+* Renamed the angular directive to `sfTypeahead`.
+* Added two-way binding support to ng-model.
+
+v0.0.4
+---------------
+* Added one-way binding support to ng-model.

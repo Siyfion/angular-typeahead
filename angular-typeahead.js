@@ -1,5 +1,5 @@
-angular.module('siyfion.ngTypeahead', [])
-  .directive('ngTypeahead', function () {
+angular.module('siyfion.sfTypeahead', [])
+  .directive('sfTypeahead', function () {
     return {
       restrict: 'ACE',
       scope: {
@@ -24,16 +24,13 @@ angular.module('siyfion.ngTypeahead', [])
           });
         });
 
-        //Updates typeahead when ngModel changed.
-        scope.$watch('ngModel', function (value) {
-            var newValue = value;
+        // Updates typeahead when ngModel changed.
+        scope.$watch('ngModel', function (newVal) {
             var valueKey = scope.datasets.valueKey;
-            if (value && 
-                valueKey &&
-                value.hasOwnProperty(valueKey)) {
-                newValue = value[valueKey];
+            if (newVal && valueKey && newVal.hasOwnProperty(valueKey)) {
+                newVal = newVal[valueKey];
             }
-            element.typeahead('setQuery', newValue || '');
+            element.typeahead('setQuery', newVal || '');
         });
       }
     };
