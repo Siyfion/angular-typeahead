@@ -14,14 +14,15 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:selected', function (object, datum, dataset) {
           scope.$apply(function() {
             scope.ngModel = datum;
-            scope.selectedDataset = dataset
+            scope.selectedDataset = dataset;
           });
         });
 
         // Updates the ngModel binding when a query is autocompleted.
-        element.bind('typeahead:autocompleted', function (object, datum) {
+        element.bind('typeahead:autocompleted', function (object, datum, dataset) {
           scope.$apply(function() {
             scope.ngModel = datum;
+            scope.selectedDataset = dataset;
           });
         });
 
