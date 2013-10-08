@@ -1,6 +1,10 @@
 CHANGELOG
 =================
 
+v0.0.6
+---------------
+* Merged in @jmaynier's PR for supporting multiple datasets. (Thanks!)
+
 v0.0.5
 ---------------
 * Renamed the angular module to `siyfion.sfTypeahead`.

@@ -1,2 +1,4 @@
 node_modules
+bower_components
+angular-typeahead.sublime-workspace
 tmp_angular-typeahead.js
