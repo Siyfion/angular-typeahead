@@ -1,6 +1,6 @@
 {
   "name": "angular-typeahead",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "main": "./angular-typeahead.js",
   "ignore": [
     "CHANGELOG",
@@ -9,6 +9,8 @@
     "Gruntfile.js",
     "package.json"
   ],
-  "dependencies": {},
+  "dependencies": {
+    "typeahead.js": "~0.9.3"
+  },
   "description": "An Angular.js wrapper around the Twitter Typeahead library."
 }

@@ -1,6 +1,6 @@
 {
   "name": "angular-typeahead",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "subdomain": "Siyfion",
   "private": true,
   "author": "siyfion@gmail.com",
@@ -17,8 +17,8 @@
     "typeahead"
   ],
   "dependencies": {
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-ngmin": "~0.0.2",
-    "grunt-contrib-clean": "~0.4.1"
+    "grunt-contrib-uglify": "~0.2.7",
+    "grunt-ngmin": "~0.0.3",
+    "grunt-contrib-clean": "~0.5.0"
   }
 }
