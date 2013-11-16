@@ -52,7 +52,7 @@ function MyCtrl($scope) {
     local: ['timtrueman', 'JakeHarding', 'vskarich']
   };
 
-  $scope.multiExample = {
+  $scope.multiExample = [
     {
       name: 'accounts',
       prefetch: 'https://twitter.com/network.json',
@@ -62,7 +62,7 @@ function MyCtrl($scope) {
       name: 'trends',
       prefetch: 'https://twitter.com/trends.json'
     }
-  };
+  ];
 
   $scope.foo = null;
 };
