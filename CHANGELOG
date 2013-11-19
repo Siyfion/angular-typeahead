@@ -1,6 +1,16 @@
 CHANGELOG
 =================
 
+v0.0.8
+---------------
+* Bugfix for issue #10
+* The fix should also support datums with non-default value keys.
+
+v0.0.7
+---------------
+* Now updates the ngModel with the raw user input.
+* Optimization on the ngModel watch.
+
 v0.0.6
 ---------------
 * Merged in @jmaynier's PR for supporting multiple datasets. (Thanks!)

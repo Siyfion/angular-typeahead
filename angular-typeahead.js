@@ -15,7 +15,7 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:selected', function (object, datum, dataset) {
           scope.$apply(function() {
             localChange = true;
-            scope.ngModel = datum;
+            scope.ngModel = datum[dataset.valueKey];
             scope.selectedDataset = dataset;
           });
         });
@@ -24,7 +24,7 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:autocompleted', function (object, datum, dataset) {
           scope.$apply(function() {
             localChange = true;
-            scope.ngModel = datum;
+            scope.ngModel = datum[dataset.valueKey];;
             scope.selectedDataset = dataset;
           });
         });
