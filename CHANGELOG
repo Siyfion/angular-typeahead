@@ -1,6 +1,10 @@
 CHANGELOG
 =================
 
+v0.0.9
+---------------
+* Added type check to the datum object, in-case the datum is a string that is implicitly converted.
+
 v0.0.8
 ---------------
 * Bugfix for issue #10

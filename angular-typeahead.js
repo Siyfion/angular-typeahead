@@ -11,11 +11,16 @@ angular.module('siyfion.sfTypeahead', [])
         element.typeahead(scope.datasets);
 
         // Updates the ngModel binding when a value is manually selected from the dropdown.
-        // ToDo: Think about how the value could be updated on user entry...
         element.bind('typeahead:selected', function (object, datum, dataset) {
           scope.$apply(function() {
             localChange = true;
-            scope.ngModel = datum[dataset.valueKey];
+            // If the datum is a string and implicitly converted
+            // to a datum object, just return the string.
+            if (typeof datum == 'string' || datum instanceof String) {
+              scope.ngModel = datum;
+            } else {
+              scope.ngModel = datum[dataset.valueKey];
+            }
             scope.selectedDataset = dataset;
           });
         });
@@ -24,12 +29,18 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:autocompleted', function (object, datum, dataset) {
           scope.$apply(function() {
             localChange = true;
-            scope.ngModel = datum[dataset.valueKey];;
+            // If the datum is a string and implicitly converted
+            // to a datum object, just return the string.
+            if (typeof datum == 'string' || datum instanceof String) {
+              scope.ngModel = datum;
+            } else {
+              scope.ngModel = datum[dataset.valueKey];
+            }
             scope.selectedDataset = dataset;
           });
         });
 
-        // Updates the ngModel binding when the user enters some text
+        // Updates the ngModel binding when the user manually enters some text
         element.bind('input', function () {
           scope.$apply(function () {
             localChange = true;
