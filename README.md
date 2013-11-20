@@ -26,7 +26,7 @@ All of which must be loaded before *angular-typeahead.js*.
 Demo
 ---------------
 
-Please feel free to play with the Plnkr: [LIVE DEMO][http://plnkr.co/edit/AT2RhpE4Qhj4iN5qMtdi?p=preview]
+Please feel free to play with the Plnkr: [LIVE DEMO][plnkr]
 
 Usage
 ---------------
@@ -83,3 +83,4 @@ function MyCtrl($scope) {
 [jQuery]: http://jquery.com/
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
+[plnkr]: http://plnkr.co/edit/AT2RhpE4Qhj4iN5qMtdi?p=preview
