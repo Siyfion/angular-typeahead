@@ -5,10 +5,10 @@ angular.module('siyfion.sfTypeahead', [])
       scope: {
         datasets: '=',
         ngModel: '='
+        onSelect: '&',
       },
       link: function (scope, element) {
         var localChange = false;
-        element.typeahead(scope.datasets);
 
         // Updates the ngModel binding when a value is manually selected from the dropdown.
         element.bind('typeahead:selected', function (object, datum, dataset) {
@@ -17,6 +17,8 @@ angular.module('siyfion.sfTypeahead', [])
             scope.ngModel = datum;
             scope.selectedDataset = dataset;
           });
+          if (scope.onSelect)
+            scope.onSelect();          
         });
 
         // Updates the ngModel binding when a query is autocompleted.
@@ -36,6 +38,17 @@ angular.module('siyfion.sfTypeahead', [])
             scope.ngModel = value;
           });
         });
+
+        // Updates the dataset
+        scope.$watch('datasets', function(newVal, oldVal){
+          if (localChange) {
+            localChange = false;
+            return;
+          }
+          element.typeahead('destroy');
+          element.typeahead(scope.datasets);
+        })
+
 
         // Updates typeahead when ngModel changed.
         scope.$watch('ngModel', function (newVal) {
