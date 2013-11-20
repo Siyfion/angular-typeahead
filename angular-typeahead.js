@@ -5,6 +5,7 @@ angular.module('siyfion.sfTypeahead', [])
       scope: {
         datasets: '=',
         ngModel: '='
+        onSelect: '&',
       },
       link: function (scope, element) {
         var localChange = false;
@@ -16,6 +17,8 @@ angular.module('siyfion.sfTypeahead', [])
             scope.ngModel = datum;
             scope.selectedDataset = dataset;
           });
+          if (scope.onSelect)
+            scope.onSelect();          
         });
 
         // Updates the ngModel binding when a query is autocompleted.
