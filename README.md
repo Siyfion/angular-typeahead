@@ -23,6 +23,11 @@ Other methods:
 
 All of which must be loaded before *angular-typeahead.js*.
 
+Demo
+---------------
+
+Please feel free to play with the Plnkr: [LIVE DEMO][http://plnkr.co/edit/AT2RhpE4Qhj4iN5qMtdi?p=preview]
+
 Usage
 ---------------
 
