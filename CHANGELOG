@@ -1,6 +1,10 @@
 CHANGELOG
 =================
 
+v0.0.10
+---------------
+* Reverting previous change in v0.0.9 (return the datum object, not the string!)
+
 v0.0.9
 ---------------
 * Added type check to the datum object, in-case the datum is a string that is implicitly converted.

@@ -14,13 +14,7 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:selected', function (object, datum, dataset) {
           scope.$apply(function() {
             localChange = true;
-            // If the datum is a string and implicitly converted
-            // to a datum object, just return the string.
-            if (typeof datum == 'string' || datum instanceof String) {
-              scope.ngModel = datum;
-            } else {
-              scope.ngModel = datum[dataset.valueKey];
-            }
+            scope.ngModel = datum;
             scope.selectedDataset = dataset;
           });
         });
@@ -29,13 +23,7 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:autocompleted', function (object, datum, dataset) {
           scope.$apply(function() {
             localChange = true;
-            // If the datum is a string and implicitly converted
-            // to a datum object, just return the string.
-            if (typeof datum == 'string' || datum instanceof String) {
-              scope.ngModel = datum;
-            } else {
-              scope.ngModel = datum[dataset.valueKey];
-            }
+            scope.ngModel = datum;
             scope.selectedDataset = dataset;
           });
         });
