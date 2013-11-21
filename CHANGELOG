@@ -1,6 +1,10 @@
 CHANGELOG
 =================
 
+v0.0.11
+---------------
+* Merged in slobo's changes, including a refactoring of the event methods and a slight hack around the [object Object] issue.
+
 v0.0.10
 ---------------
 * Reverting previous change in v0.0.9 (return the datum object, not the string!)
