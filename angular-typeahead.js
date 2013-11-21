@@ -9,18 +9,18 @@ angular.module('siyfion.sfTypeahead', [])
       link: function (scope, element) {
         var localChange = false;
         element.typeahead(scope.datasets);
-        
-        function updateScope(object, datum, dataset) {
+
+        function updateScope (object, datum, dataset) {
           // for some reason $apply will place [Object] into element, this hacks around it
           var preserveVal = element.val();
-          scope.$apply(function(){
+          scope.$apply(function () {
             localChange = true;
             scope.ngModel = datum;
             scope.selectedDataset = dataset;
           });
           element.val(preserveVal);
         }
-        
+
         // Updates the ngModel binding when a value is manually selected from the dropdown.
         element.bind('typeahead:selected', updateScope);
 
@@ -63,4 +63,4 @@ angular.module('siyfion.sfTypeahead', [])
       }
     };
   });
-  
+
