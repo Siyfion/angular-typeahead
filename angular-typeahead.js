@@ -22,10 +22,16 @@ angular.module('siyfion.sfTypeahead', [])
         }
 
         // Updates the ngModel binding when a value is manually selected from the dropdown.
-        element.bind('typeahead:selected', updateScope);
+        element.bind('typeahead:selected', function(object, datum, dataset) {
+          updateScope(object, datum, dataset);
+          scope.$emit('typeahead:selected');
+        });
 
         // Updates the ngModel binding when a query is autocompleted.
-        element.bind('typeahead:autocompleted', updateScope);
+        element.bind('typeahead:autocompleted', function(object, datum, dataset) {
+          updateScope(object, datum, dataset);
+          scope.$emit('typeahead:autocompleted');
+        });
 
         // Updates the ngModel binding when the user manually enters some text
         element.bind('input', function () {
