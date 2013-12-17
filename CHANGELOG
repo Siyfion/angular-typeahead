@@ -1,6 +1,10 @@
 CHANGELOG
 =================
 
+v0.0.12
+---------------
+* Merged in Jakob Lahmer's changes, which ensures that the typeahead events are propagated to the scope.
+
 v0.0.11
 ---------------
 * Merged in slobo's changes, including a refactoring of the event methods and a slight hack around the [object Object] issue.
