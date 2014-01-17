@@ -36,6 +36,12 @@ angular.module('siyfion.sfTypeahead', [])
           });
         });
 
+        // teardown and recreate typeahead when datasets changed
+        scope.$watch('datasets', function(datasets) {
+          element.typeahead('destroy');
+          element.typeahead(datasets);
+        });
+
         // Updates typeahead when ngModel changed.
         scope.$watch('ngModel', function (newVal) {
           var valueKey;
