@@ -28,6 +28,13 @@ Demo
 
 Please feel free to play with the Plnkr: [LIVE DEMO][plnkr]
 
+Issues
+---------------
+
+Please feel free to add any issues to the GitHub issue tracker.
+
+However if I may make one request, **no "+1" comments, either add something worthwhile, or nothing at all**.
+
 Usage
 ---------------
 
