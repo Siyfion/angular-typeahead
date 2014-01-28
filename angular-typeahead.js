@@ -40,7 +40,7 @@ angular.module('siyfion.sfTypeahead', [])
         scope.$watch('datasets', function(datasets) {
           element.typeahead('destroy');
           element.typeahead(datasets);
-        });
+        }, true);
 
         // Updates typeahead when ngModel changed.
         scope.$watch('ngModel', function (newVal) {
