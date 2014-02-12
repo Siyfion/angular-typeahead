@@ -4,7 +4,7 @@
 * This is a **BREAKING CHANGE** release.
 * Major new release that adds initial support for the new Twitter Typeahead v0.10.x release.
 * As a direct result of Twitter's changes, two-way binding is no longer possible at this time (the directive cannot access any local datum lists & never could access remote lists).
-* You can now update local datasets using [`Bloodhound#add`][https://github.com/twitter/typeahead.js/blob/master/src/bloodhound/bloodhound.js#L151] and I have questioned whether a similar method could be added for datum removal.
+* You can now update local datasets using [`Bloodhound#add`](https://github.com/twitter/typeahead.js/blob/master/src/bloodhound/bloodhound.js#L151) and I have questioned whether a similar method could be added for datum removal.
 
 ## v0.0.12
 * Merged in Jakob Lahmer's changes, which ensures that the typeahead events are propagated to the scope.
