@@ -17,9 +17,10 @@ Other methods:
 * Download latest *[angular-typeahead.js][angular-typeahead.js]* or *[angular-typeahead.min.js][angular-typeahead.min.js]*.
 
 **Note:** angular-typeahead.js has dependencies on the following libraries:
-* [typeahead.js][typeahead.js]
+* [typeahead.js][typeahead.js] v0.10.x
+* [bloodhound.js][typeahead.js] v0.10.x
 * [Angular.js][angularjs]
-* [jQuery][jquery] 1.9+
+* [jQuery][jquery] v1.9+
 
 All of which must be loaded before *angular-typeahead.js*.
 
@@ -43,6 +44,7 @@ The bare bones:
 ```html
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="typeahead.js"></script>
+<script type="text/javascript" src="bloodhound.js"></script>
 <script type="text/javascript" src="angular.js"></script>
 <script type="text/javascript" src="angular-typeahead.js"></script>
 <script>
@@ -50,7 +52,9 @@ The bare bones:
   angular.module('myApp', ['siyfion.sfTypeahead']);
 </script>
 <body ng-app="myApp">
-    <input type="text" class="sfTypeahead" datasets="exampleData" ng-model="foo"></div>
+    <input type="text" class="sfTypeahead" options="exampleOptions" datasets="exampleData" ng-model="foo">
+    <!-- OR USING AN ATTRIBUTE -->
+    <input type="text" options="exampleOptions" datasets="multiExample" ng-model="foo" sfTypeahead>
 <body>
 ```
 
@@ -58,21 +62,57 @@ The bare bones:
 // Define your own controller somewhere...
 function MyCtrl($scope) {
 
-  // single dataset
-  $scope.exampleData = {
-    name: 'accounts',
-    local: ['timtrueman', 'JakeHarding', 'vskarich']
+  // Instantiate the bloodhound suggestion engine
+  var numbers = new Bloodhound({
+    datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
+    queryTokenizer: Bloodhound.tokenizers.whitespace,
+    local: [
+      { num: 'one' },
+      { num: 'two' },
+      { num: 'three' },
+      { num: 'four' },
+      { num: 'five' },
+      { num: 'six' },
+      { num: 'seven' },
+      { num: 'eight' },
+      { num: 'nine' },
+      { num: 'ten' }
+    ]
+  });
+
+  // initialize the bloodhound suggestion engine
+  numbers.initialize();
+
+  // Allows the addition of local datum
+  // values to a pre-existing bloodhound engine.
+  $scope.addValue = function () {
+    numbers.add({
+      num: 'twenty'
+    });
   };
 
+  // Typeahead options object
+  $scope.exampleOptions = {
+    highlight: true
+  };
+
+  // Single dataset example
+  $scope.exampleData = {
+    displayKey: 'num',
+    source: numbers.ttAdapter()
+  };
+
+  // Multiple dataset example
   $scope.multiExample = [
     {
-      name: 'accounts',
-      prefetch: 'https://twitter.com/network.json',
-      remote: 'https://twitter.com/accounts?q=%QUERY'
+      name: 'nba',
+      displayKey: 'team',
+      source: nba.ttAdapter()   // Note the nba Bloodhound engine isn't really defined here.
     },
     {
-      name: 'trends',
-      prefetch: 'https://twitter.com/trends.json'
+      name: 'nhl',
+      displayKey: 'team',
+      source: nhl.ttAdapter()   // Note the nhl Bloodhound engine isn't really defined here.
     }
   ];
 
@@ -90,4 +130,4 @@ function MyCtrl($scope) {
 [jQuery]: http://jquery.com/
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
-[plnkr]: http://plnkr.co/edit/AT2RhpE4Qhj4iN5qMtdi?p=preview
+[plnkr]: http://plnkr.co/edit/cMvm7Z4REuIP69Uk4Tzz?p=preview
