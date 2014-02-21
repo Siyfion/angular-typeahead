@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.1.1
+* Adds event propagation for all the other typeahead.js events.
+
 ## v0.1.0
 * This is a **BREAKING CHANGE** release.
 * Major new release that adds initial support for the new Twitter Typeahead v0.10.x release.

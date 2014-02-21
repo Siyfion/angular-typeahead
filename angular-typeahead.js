@@ -33,6 +33,21 @@ angular.module('siyfion.sfTypeahead', [])
           scope.$emit('typeahead:autocompleted');
         });
 
+        // Propagate the opened event
+        element.bind('typeahead:opened', function() {
+          scope.$emit('typeahead:opened');
+        });
+
+        // Propagate the closed event
+        element.bind('typeahead:closed', function() {
+          scope.$emit('typeahead:closed');
+        });
+
+        // Propagate the cursorchanged event
+        element.bind('typeahead:cursorchanged', function(event, suggestion, dataset) {
+          scope.$emit('typeahead:cursorchanged', event, suggestion, dataset);
+        });
+
         // Update the value binding when the user manually enters some text
         element.bind('input', function () {
           scope.$apply(function () {
