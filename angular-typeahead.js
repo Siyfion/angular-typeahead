@@ -12,6 +12,37 @@ angular.module('siyfion.sfTypeahead', [])
         // Create the typeahead on the element
         element.typeahead(scope.options, scope.datasets);
 
+        function getCursorPosition (element) {
+          var position = 0;
+          element = element[0];
+
+          // IE Support.
+          if (document.selection) {
+            var range = document.selection.createRange();
+            range.moveStart('character', -element.value.length);
+
+            position = range.text.length;
+          }
+          // Other browsers.
+          else if (typeof element.selectionStart === 'number') {
+            position = element.selectionStart;
+          }
+          return position;
+        }
+
+        function setCursorPosition (element, position) {
+          element = element[0];
+          if (document.selection) {
+            var range = element.createTextRange();
+            range.move('character', position);
+            range.select();
+          }
+          else if (typeof element.selectionStart === 'number') {
+            element.focus();
+            element.setSelectionRange(position, position);
+          }
+        }
+
         function updateScope (object, suggestion, dataset) {
           // for some reason $apply will place [Object] into element, this hacks around it
           var preserveVal = element.val();
@@ -50,12 +81,13 @@ angular.module('siyfion.sfTypeahead', [])
 
         // Update the value binding when the user manually enters some text
         element.bind('input', function () {
+          var preservePos = getCursorPosition(element);
           scope.$apply(function () {
             var value = element.val();
             scope.value = value;
           });
+          setCursorPosition(element, preservePos);
         });
       }
     };
   });
-
