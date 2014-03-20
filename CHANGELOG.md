@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.1.2
+* Retains cursor position, thanks to @skakri.
+
 ## v0.1.1
 * Adds event propagation for all the other typeahead.js events.
 
