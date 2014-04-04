@@ -2,15 +2,29 @@ angular.module('siyfion.sfTypeahead', [])
   .directive('sfTypeahead', function () {
     return {
       restrict: 'AC',       // Only apply on an attribute or class
-      scope: {
-        value: '=ngModel',  // The two-way data bound value that is returned by the directive
+      require: '?ngModel',  // The two-way data bound value that is returned by the directive
+      scope: {  
         options: '=',       // The typeahead configuration options (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options)
         datasets: '='       // The typeahead datasets to use (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets)
       },
-      link: function (scope, element) {
-
+      link: function (scope, element, attrs, ngModel) {
+        
+        // Flag if user is selecting or not
+        var selecting = false;
+        
         // Create the typeahead on the element
         element.typeahead(scope.options, scope.datasets);
+        
+        // Parses what is going to be set to model
+        ngModel.$parsers.push(function (fromView) {
+          if (scope.options.editable === false) {
+            ngModel.$setValidity('typeahead', !selecting);
+            if (selecting) {
+              return undefined;
+            }
+          }
+          return fromView;
+        });
 
         function getCursorPosition (element) {
           var position = 0;
@@ -47,7 +61,8 @@ angular.module('siyfion.sfTypeahead', [])
           // for some reason $apply will place [Object] into element, this hacks around it
           var preserveVal = element.val();
           scope.$apply(function () {
-            scope.value = suggestion;
+            selecting = false;
+            ngModel.$setViewValue(suggestion);
           });
           element.val(preserveVal);
         }
@@ -84,7 +99,8 @@ angular.module('siyfion.sfTypeahead', [])
           var preservePos = getCursorPosition(element);
           scope.$apply(function () {
             var value = element.val();
-            scope.value = value;
+            selecting = true;
+            ngModel.$setViewValue(value);
           });
           setCursorPosition(element, preservePos);
         });
