@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.1.3
+* Adds 'editable' option, to only allow model values from datum objects. (Thanks to @raphahardt)
+
 ## v0.1.2
 * Retains cursor position, thanks to @skakri.
 
