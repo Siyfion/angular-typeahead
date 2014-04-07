@@ -3,21 +3,21 @@ angular.module('siyfion.sfTypeahead', [])
     return {
       restrict: 'AC',       // Only apply on an attribute or class
       require: '?ngModel',  // The two-way data bound value that is returned by the directive
-      scope: {  
+      scope: {
         options: '=',       // The typeahead configuration options (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options)
         datasets: '='       // The typeahead datasets to use (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets)
       },
       link: function (scope, element, attrs, ngModel) {
-        
+
         // Flag if user is selecting or not
         var selecting = false;
-        
+
         // Create the typeahead on the element
         element.typeahead(scope.options, scope.datasets);
-        
+
         // Parses what is going to be set to model
         ngModel.$parsers.push(function (fromView) {
-          if (scope.options.editable === false) {
+          if (((_ref = scope.options) != null ? _ref.editable : void 0) === false) {
             ngModel.$setValidity('typeahead', !selecting);
             if (selecting) {
               return undefined;
