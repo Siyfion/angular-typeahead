@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.1.4
+* Adds a sanity check to the options object for the 'editable' property.
+
 ## v0.1.3
 * Adds 'editable' option, to only allow model values from datum objects. (Thanks to @raphahardt)
 
