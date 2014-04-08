@@ -9,22 +9,80 @@ angular.module('siyfion.sfTypeahead', [])
       },
       link: function (scope, element, attrs, ngModel) {
 
-        // Flag if user is selecting or not
-        var selecting = false;
+        var options = scope.options || {},
+            datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || []; // normalize to array
 
         // Create the typeahead on the element
         element.typeahead(scope.options, scope.datasets);
 
-        // Parses what is going to be set to model
+        // Parses and validates what is going to be set to model (called when: ngModel.$setViewValue(value))
         ngModel.$parsers.push(function (fromView) {
-          if (((_ref = scope.options) != null ? _ref.editable : void 0) === false) {
-            ngModel.$setValidity('typeahead', !selecting);
-            if (selecting) {
-              return undefined;
-            }
+          // Assuming that all objects are datums
+          // See typeahead basics: https://gist.github.com/jharding/9458744#file-the-basics-js-L15
+          var isDatum = angular.isObject(fromView);
+          if (options.editable === false) {
+            ngModel.$setValidity('typeahead', isDatum);
+            return isDatum ? fromView : undefined;
           }
+
           return fromView;
         });
+
+        // Formats what is going to be displayed (called when: $scope.model = { object })
+        ngModel.$formatters.push(function (fromModel) {
+          if (angular.isObject(fromModel)) {
+            var found = false;
+            $.each(datasets, function (index, dataset) {
+              var query = dataset.source, displayKey = dataset.displayKey || 'value', value = fromModel[displayKey] || '';
+
+              if (found) return false; // break
+              
+              if (!value) {
+                // Fakes a request just to use the same function logic
+                search([]);
+                return;
+              }
+
+              // Get suggestions by asynchronous request and updates the view
+              query(value, search);
+              return;
+              
+              function search(suggestions) {
+                var exists = inArray(suggestions, fromModel);
+                if (exists) {
+                  ngModel.$setViewValue(fromModel);
+                  found = true;
+                } else {
+                  ngModel.$setViewValue(options.editable === false ? undefined : fromModel);
+                }
+
+                // At this point, digest could be running (local, prefetch) or could not be (remote)
+                // As bloodhound object is inaccessible to know that, simulates an async to not conflict
+                // with possible running digest
+                if (found || index === datasets.length - 1) {
+                  setTimeout(function () {
+                    scope.$apply(function () {
+                      element.typeahead('val', value);
+                    });
+                  }, 0);
+                }
+              }
+            });
+
+            return ''; // loading
+          }
+          return fromModel;
+        });
+
+        function inArray(array, element) {
+          var found = -1;
+          angular.forEach(array, function (value, key) {
+            if (angular.equals(element, value)) {
+              found = key;
+            }
+          });
+          return found >= 0;
+        }
 
         function getCursorPosition (element) {
           var position = 0;
@@ -58,25 +116,21 @@ angular.module('siyfion.sfTypeahead', [])
         }
 
         function updateScope (object, suggestion, dataset) {
-          // for some reason $apply will place [Object] into element, this hacks around it
-          var preserveVal = element.val();
           scope.$apply(function () {
-            selecting = false;
             ngModel.$setViewValue(suggestion);
           });
-          element.val(preserveVal);
         }
 
         // Update the value binding when a value is manually selected from the dropdown.
         element.bind('typeahead:selected', function(object, suggestion, dataset) {
           updateScope(object, suggestion, dataset);
-          scope.$emit('typeahead:selected');
+          scope.$emit('typeahead:selected', suggestion, dataset);
         });
 
         // Update the value binding when a query is autocompleted.
         element.bind('typeahead:autocompleted', function(object, suggestion, dataset) {
           updateScope(object, suggestion, dataset);
-          scope.$emit('typeahead:autocompleted');
+          scope.$emit('typeahead:autocompleted', suggestion, dataset);
         });
 
         // Propagate the opened event
@@ -95,11 +149,11 @@ angular.module('siyfion.sfTypeahead', [])
         });
 
         // Update the value binding when the user manually enters some text
+        // See: http://stackoverflow.com/questions/17384218/jquery-input-event
         element.bind('input', function () {
           var preservePos = getCursorPosition(element);
           scope.$apply(function () {
-            var value = element.val();
-            selecting = true;
+            var value = element.typeahead('val');
             ngModel.$setViewValue(value);
           });
           setCursorPosition(element, preservePos);
