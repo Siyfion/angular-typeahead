@@ -33,10 +33,12 @@ angular.module('siyfion.sfTypeahead', [])
           if (angular.isObject(fromModel)) {
             var found = false;
             $.each(datasets, function (index, dataset) {
-              var query = dataset.source, displayKey = dataset.displayKey || 'value', value = fromModel[displayKey] || '';
+              var query = dataset.source, 
+                  displayKey = dataset.displayKey || 'value', 
+                  value = (angular.isFunction(displayKey) ? displayKey(fromModel) : fromModel[displayKey]) || '';
 
               if (found) return false; // break
-              
+
               if (!value) {
                 // Fakes a request just to use the same function logic
                 search([]);
@@ -46,7 +48,7 @@ angular.module('siyfion.sfTypeahead', [])
               // Get suggestions by asynchronous request and updates the view
               query(value, search);
               return;
-              
+
               function search(suggestions) {
                 var exists = inArray(suggestions, fromModel);
                 if (exists) {
