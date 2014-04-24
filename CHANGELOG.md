@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.2.0
+* This is a *potentially* **BREAKING CHANGE** release.
+* This adds initial support for two-way data binding.
+
 ## v0.1.4
 * Adds a sanity check to the options object for the 'editable' property.
 

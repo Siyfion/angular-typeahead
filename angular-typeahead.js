@@ -33,8 +33,8 @@ angular.module('siyfion.sfTypeahead', [])
           if (angular.isObject(fromModel)) {
             var found = false;
             $.each(datasets, function (index, dataset) {
-              var query = dataset.source, 
-                  displayKey = dataset.displayKey || 'value', 
+              var query = dataset.source,
+                  displayKey = dataset.displayKey || 'value',
                   value = (angular.isFunction(displayKey) ? displayKey(fromModel) : fromModel[displayKey]) || '';
 
               if (found) return false; // break
