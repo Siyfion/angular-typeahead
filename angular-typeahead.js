@@ -160,6 +160,10 @@ angular.module('siyfion.sfTypeahead', [])
           });
           setCursorPosition(element, preservePos);
         });
+        
+        scope.$on('typeahead:input:clear', function() {
+          element.val('');
+        });
       }
     };
   });
