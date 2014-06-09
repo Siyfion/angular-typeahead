@@ -1,5 +1,5 @@
 angular.module('siyfion.sfTypeahead', [])
-  .directive('sfTypeahead', function () {
+  .directive('sfTypeahead', ['$window', function ($window) {
     return {
       restrict: 'AC',       // Only apply on an attribute or class
       require: '?ngModel',  // The two-way data bound value that is returned by the directive
@@ -160,6 +160,12 @@ angular.module('siyfion.sfTypeahead', [])
           });
           setCursorPosition(element, preservePos);
         });
+
+        scope.$on('typeahead:input:clear', function() {
+          $window.setTimeout(function() {
+            element.val('');
+          }, 100);
+        });
       }
     };
-  });
+  }]);
