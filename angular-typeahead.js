@@ -12,6 +12,8 @@ angular.module('siyfion.sfTypeahead', [])
         var options = scope.options || {},
             datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || []; // normalize to array
 
+        var selected_datum = null;
+        
         // Create the typeahead on the element
         element.typeahead(scope.options, scope.datasets);
 
@@ -19,13 +21,13 @@ angular.module('siyfion.sfTypeahead', [])
         ngModel.$parsers.push(function (fromView) {
           // Assuming that all objects are datums
           // See typeahead basics: https://gist.github.com/jharding/9458744#file-the-basics-js-L15
-          var isDatum = angular.isObject(fromView);
+          var isDatum = angular.isObject(selected_datum);
           if (options.editable === false) {
             ngModel.$setValidity('typeahead', isDatum);
-            return isDatum ? fromView : undefined;
+            return isDatum ? selected_datum : undefined;
           }
 
-          return fromView;
+          return isDatum ? selected_datum : fromView;
         });
 
         // Formats what is going to be displayed (called when: $scope.model = { object })
@@ -51,11 +53,12 @@ angular.module('siyfion.sfTypeahead', [])
 
               function search(suggestions) {
                 var exists = inArray(suggestions, fromModel);
+                selected_datum = fromModel;
                 if (exists) {
-                  ngModel.$setViewValue(fromModel);
+                  ngModel.$setViewValue(value);
                   found = true;
                 } else {
-                  ngModel.$setViewValue(options.editable === false ? undefined : fromModel);
+                  ngModel.$setViewValue(options.editable === false ? undefined : value);
                 }
 
                 // At this point, digest could be running (local, prefetch) or could not be (remote)
@@ -119,7 +122,21 @@ angular.module('siyfion.sfTypeahead', [])
 
         function updateScope (object, suggestion, dataset) {
           scope.$apply(function () {
-            ngModel.$setViewValue(suggestion);
+            var found = false;
+            $.each(datasets, function (index, dataset) {
+                  var displayKey = dataset.displayKey || 'value',
+                  value = (angular.isFunction(displayKey) ? displayKey(suggestion) : suggestion[displayKey]) || '';
+                
+                if(found) return false;
+                
+                if(!value) return;
+                
+                found = true;
+                
+                //Update selected datum.
+                selected_datum = suggestion;
+                ngModel.$setViewValue(value);
+            });
           });
         }
 
@@ -155,8 +172,8 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('input', function () {
           var preservePos = getCursorPosition(element);
           scope.$apply(function () {
-            var value = element.typeahead('val');
-            ngModel.$setViewValue(value);
+            selected_datum = null;
+            ngModel.$setViewValue(element.typeahead('val'));
           });
           setCursorPosition(element, preservePos);
         });
