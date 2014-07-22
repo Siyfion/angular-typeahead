@@ -54,7 +54,7 @@ The bare bones:
 <body ng-app="myApp">
     <input type="text" class="sfTypeahead" options="exampleOptions" datasets="exampleData" ng-model="foo">
     <!-- OR USING AN ATTRIBUTE -->
-    <input type="text" options="exampleOptions" datasets="multiExample" ng-model="foo" sfTypeahead>
+    <input type="text" options="exampleOptions" datasets="multiExample" ng-model="foo" sf-typeahead>
 <body>
 ```
 
