@@ -86,37 +86,6 @@ angular.module('siyfion.sfTypeahead', [])
           return found >= 0;
         }
 
-        function getCursorPosition (element) {
-          var position = 0;
-          element = element[0];
-
-          // IE Support.
-          if (document.selection) {
-            var range = document.selection.createRange();
-            range.moveStart('character', -element.value.length);
-
-            position = range.text.length;
-          }
-          // Other browsers.
-          else if (typeof element.selectionStart === 'number') {
-            position = element.selectionStart;
-          }
-          return position;
-        }
-
-        function setCursorPosition (element, position) {
-          element = element[0];
-          if (document.selection) {
-            var range = element.createTextRange();
-            range.move('character', position);
-            range.select();
-          }
-          else if (typeof element.selectionStart === 'number') {
-            element.focus();
-            element.setSelectionRange(position, position);
-          }
-        }
-
         function updateScope (object, suggestion, dataset) {
           scope.$apply(function () {
             ngModel.$setViewValue(suggestion);
@@ -148,17 +117,6 @@ angular.module('siyfion.sfTypeahead', [])
         // Propagate the cursorchanged event
         element.bind('typeahead:cursorchanged', function(event, suggestion, dataset) {
           scope.$emit('typeahead:cursorchanged', event, suggestion, dataset);
-        });
-
-        // Update the value binding when the user manually enters some text
-        // See: http://stackoverflow.com/questions/17384218/jquery-input-event
-        element.bind('input', function () {
-          var preservePos = getCursorPosition(element);
-          scope.$apply(function () {
-            var value = element.typeahead('val');
-            ngModel.$setViewValue(value);
-          });
-          setCursorPosition(element, preservePos);
         });
       }
     };
