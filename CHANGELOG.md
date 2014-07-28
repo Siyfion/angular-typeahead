@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.1
+* Removes the event bindings as they should no-longer be needed due to the new way the ng-model is being updated.
+
 ## v0.2.0
 * This is a *potentially* **BREAKING CHANGE** release.
 * This adds initial support for two-way data binding.
