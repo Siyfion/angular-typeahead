@@ -72,6 +72,9 @@ angular.module('siyfion.sfTypeahead', [])
             });
 
             return ''; // loading
+          } else if (fromModel == null) {
+            //fromModel has been set to null or undefined
+            element.typeahead('val', null);
           }
           return fromModel;
         });
