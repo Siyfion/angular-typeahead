@@ -5,10 +5,10 @@ angular.module('siyfion.sfTypeahead', [])
       require: '?ngModel',  // The two-way data bound value that is returned by the directive
       scope: {
         options: '=',       // The typeahead configuration options (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options)
-        datasets: '='       // The typeahead datasets to use (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets)
+        datasets: '=',      // The typeahead datasets to use (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets)
+        suggestionKey : '@'
       },
       link: function (scope, element, attrs, ngModel) {
-
         var options = scope.options || {},
             datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || []; // normalize to array
 
@@ -91,7 +91,9 @@ angular.module('siyfion.sfTypeahead', [])
 
         function updateScope (object, suggestion, dataset) {
           scope.$apply(function () {
-            ngModel.$setViewValue(suggestion);
+            var newViewValue = (angular.isDefined(scope.suggestionKey)) ?
+                suggestion[scope.suggestionKey] : suggestion;
+            ngModel.$setViewValue(newViewValue);
           });
         }
 
@@ -124,3 +126,4 @@ angular.module('siyfion.sfTypeahead', [])
       }
     };
   });
+
