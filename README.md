@@ -120,6 +120,15 @@ function MyCtrl($scope) {
 };
 ```
 
+Options
+---------------
+The following attributes are available to provide additional configuration.
+
+| Option | Default | Description |
+|---------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| suggestionKey | null | The key on the selected typeahead suggestion object for which the corresponding value is used as the model's new value. If null, the entire suggestion object/value is set as the model. |
+
+
 
 <!-- assets -->
 [angular-typeahead.js]: https://raw.github.com/Siyfion/angular-typeahead/master/angular-typeahead.js
@@ -131,3 +140,6 @@ function MyCtrl($scope) {
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
 [plnkr]: http://plnkr.co/edit/cMvm7Z4REuIP69Uk4Tzz?p=preview
+
+
+
