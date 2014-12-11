@@ -31,63 +31,24 @@ angular.module('siyfion.sfTypeahead', [])
         // Formats what is going to be displayed (called when: $scope.model = { object })
         ngModel.$formatters.push(function (fromModel) {
           if (angular.isObject(fromModel)) {
-            var found = false;
+            var newViewValue;
             $.each(datasets, function (index, dataset) {
-              var query = dataset.source,
-                  displayKey = dataset.displayKey || 'value',
-                  value = (angular.isFunction(displayKey) ? displayKey(fromModel) : fromModel[displayKey]) || '';
+              var displayKey = dataset.displayKey || 'value',
+              value = (angular.isFunction(displayKey) ? displayKey(fromModel) : fromModel[displayKey]) || '';
 
-              if (found) return false; // break
-
-              if (!value) {
-                // Fakes a request just to use the same function logic
-                search([]);
-                return;
-              }
-
-              // Get suggestions by asynchronous request and updates the view
-              query(value, search);
-              return;
-
-              function search(suggestions) {
-                var exists = inArray(suggestions, fromModel);
-                if (exists) {
-                  ngModel.$setViewValue(fromModel);
-                  found = true;
-                } else {
-                  ngModel.$setViewValue(options.editable === false ? undefined : fromModel);
-                }
-
-                // At this point, digest could be running (local, prefetch) or could not be (remote)
-                // As bloodhound object is inaccessible to know that, simulates an async to not conflict
-                // with possible running digest
-                if (found || index === datasets.length - 1) {
-                  setTimeout(function () {
-                    scope.$apply(function () {
-                      element.typeahead('val', value);
-                    });
-                  }, 0);
-                }
+              if (value && !newViewValue) {
+                newViewValue = value;
               }
             });
-
-            return ''; // loading
+            return newViewValue;
           } else if (fromModel == null) {
             //fromModel has been set to null or undefined
             element.typeahead('val', null);
+            return;
+          } else {
+            return fromModel;
           }
-          return fromModel;
         });
-
-        function inArray(array, element) {
-          var found = -1;
-          angular.forEach(array, function (value, key) {
-            if (angular.equals(element, value)) {
-              found = key;
-            }
-          });
-          return found >= 0;
-        }
 
         function updateScope (object, suggestion, dataset) {
           scope.$apply(function () {
@@ -126,4 +87,3 @@ angular.module('siyfion.sfTypeahead', [])
       }
     };
   });
-
