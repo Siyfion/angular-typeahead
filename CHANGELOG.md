@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.2
+* Adds a watcher to the datsets and options and reinitializes if any changes are detected.
+
 ## v0.2.1
 * Removes the event bindings as they should no-longer be needed due to the new way the ng-model is being updated.
 
