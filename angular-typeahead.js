@@ -13,6 +13,19 @@ angular.module('siyfion.sfTypeahead', [])
             datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || [], // normalize to array
             init = true;
 
+        // Correct non-Chrome browser bug when input is inside LABEL tag
+        if (element[0] && element[0].parentElement.tagName == 'LABEL') {
+          var elm = element[0].parentElement;
+          $(elm).on('click',function(elm){
+            var inputList = $(elm.currentTarget).find('input');
+            if (inputList.length > 1) {
+              setTimeout(function(){
+                inputList.last().focus();
+              }, 0);
+            }
+          });
+        }
+
         // Create the typeahead on the element
         initialize();
 
