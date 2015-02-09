@@ -10,10 +10,20 @@ angular.module('siyfion.sfTypeahead', [])
       },
       link: function (scope, element, attrs, ngModel) {
         var options = scope.options || {},
-            datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || []; // normalize to array
+            datasets = (angular.isArray(scope.datasets) ? scope.datasets : [scope.datasets]) || [], // normalize to array
+            init = true;
 
         // Create the typeahead on the element
-        element.typeahead(scope.options, scope.datasets);
+        initialize();
+
+        scope.$watch('options', initialize);
+
+        if (angular.isArray(scope.datasets)) {
+          scope.$watchCollection('datasets', initialize);
+        }
+        else {
+          scope.$watch('datasets', initialize);
+        }
 
         // Parses and validates what is going to be set to model (called when: ngModel.$setViewValue(value))
         ngModel.$parsers.push(function (fromView) {
@@ -78,6 +88,20 @@ angular.module('siyfion.sfTypeahead', [])
           }
           return fromModel;
         });
+
+        function initialize() {
+          if (init) {
+            element.typeahead(scope.options, scope.datasets)
+            init = false;
+          } else {
+            // If datasets or options change, hang onto user input until we reinitialize
+            var value = element.val();
+            element.typeahead('destroy');
+            element.typeahead(scope.options, scope.datasets)
+            ngModel.$setViewValue(value);
+            element.triggerHandler('typeahead:opened');
+          }
+        }
 
         function inArray(array, element) {
           var found = -1;
