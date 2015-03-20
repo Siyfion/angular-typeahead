@@ -6,7 +6,8 @@ angular.module('siyfion.sfTypeahead', [])
       scope: {
         options: '=',       // The typeahead configuration options (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options)
         datasets: '=',      // The typeahead datasets to use (https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets)
-        suggestionKey : '@'
+        suggestionKey : '@',
+        datumToModel: '=?'
       },
       link: function (scope, element, attrs, ngModel) {
         var options = scope.options || {},
@@ -113,10 +114,16 @@ angular.module('siyfion.sfTypeahead', [])
           return found >= 0;
         }
 
+        if(!scope.datumToModel)
+          scope.datumToModel = function(v) {return v}
+
         function updateScope (object, suggestion, dataset) {
           scope.$apply(function () {
             var newViewValue = (angular.isDefined(scope.suggestionKey)) ?
                 suggestion[scope.suggestionKey] : suggestion;
+                
+            newViewValue = scope.datumToModel(newViewValue)
+            
             ngModel.$setViewValue(newViewValue);
           });
         }
