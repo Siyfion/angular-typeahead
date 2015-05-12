@@ -27,6 +27,14 @@ angular.module('siyfion.sfTypeahead', [])
 
         // Parses and validates what is going to be set to model (called when: ngModel.$setViewValue(value))
         ngModel.$parsers.push(function (fromView) {
+          // In Firefox, when the typeahead field loses focus, it fires an extra
+          // angular input update event.  This causes the stored model to be
+          // replaced with the search string.  If the typeahead search string
+          // hasn't changed at all (the 'val' property doesn't update until
+          // after the event loop finishes), then we can bail out early and keep
+          // the current model value.
+          if (fromView === element.typeahead('val')) return ngModel.$modelValue;
+
           // Assuming that all objects are datums
           // See typeahead basics: https://gist.github.com/jharding/9458744#file-the-basics-js-L15
           var isDatum = angular.isObject(fromView);
@@ -150,4 +158,3 @@ angular.module('siyfion.sfTypeahead', [])
       }
     };
   });
-
