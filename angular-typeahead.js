@@ -151,6 +151,21 @@ angular.module('siyfion.sfTypeahead', [])
           scope.$emit('typeahead:closed');
         });
 
+        // Propagate the asyncrequest event
+        element.bind('typeahead:asyncrequest', function() {
+          scope.$emit('typeahead:asyncrequest');
+        });
+
+        // Propagate the asynccancel event
+        element.bind('typeahead:asynccancel', function() {
+          scope.$emit('typeahead:asynccancel');
+        });
+
+        // Propagate the asyncreceive event
+        element.bind('typeahead:asyncreceive', function() {
+          scope.$emit('typeahead:asyncreceive');
+        });
+
         // Propagate the cursorchanged event
         element.bind('typeahead:cursorchanged', function(event, suggestion, dataset) {
           scope.$emit('typeahead:cursorchanged', event, suggestion, dataset);
