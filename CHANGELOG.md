@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v0.2.3
+* Adds async event propagation (Thanks @powange)
+* Fixes the Firefox "focus bug" (Thanks @CyborgMaster)
+
 ## v0.2.2
 * Adds a watcher to the datsets and options and reinitializes if any changes are detected.
 
