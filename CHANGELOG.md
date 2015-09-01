@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.2.4
+* Adds typeahead.js v0.11.1 dependency
+
 ## v0.2.3
 * Adds async event propagation (Thanks @powange)
 * Fixes the Firefox "focus bug" (Thanks @CyborgMaster)
