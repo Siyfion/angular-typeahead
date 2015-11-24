@@ -33,7 +33,7 @@ angular.module('siyfion.sfTypeahead', [])
           // hasn't changed at all (the 'val' property doesn't update until
           // after the event loop finishes), then we can bail out early and keep
           // the current model value.
-          if (fromView === element.typeahead('val')) return ngModel.$modelValue;
+          if (angular.isObject(ngModel.$modelValue) && fromView === element.typeahead('val')) return ngModel.$modelValue;
 
           // Assuming that all objects are datums
           // See typeahead basics: https://gist.github.com/jharding/9458744#file-the-basics-js-L15
