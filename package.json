@@ -3,6 +3,7 @@
   "version": "0.2.4",
   "subdomain": "Siyfion",
   "private": true,
+  "main": "angular-typeahead.js",
   "author": "siyfion@gmail.com",
   "description": "An Angular.js wrapper around the Twitter Typeahead library.",
   "contributors": [
