@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## v0.3.0
+* Fixes \#71, \#72 and \#79, binds ALL typeahead events adds `require()` support.
+
 ## v0.2.4
 * Adds typeahead.js v0.11.1 dependency
 
