@@ -1,5 +1,8 @@
 # CHANGELOG
 
+# v0.3.1
+* Removed the "all-events" binding, as the code didn't work.
+
 ## v0.3.0
 * Fixes \#71, \#72 and \#79, binds ALL typeahead events adds `require()` support.
 

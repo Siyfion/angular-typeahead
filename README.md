@@ -140,6 +140,3 @@ The following attributes are available to provide additional configuration.
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
 [plnkr]: http://plnkr.co/edit/cMvm7Z4REuIP69Uk4Tzz?p=preview
-
-
-
