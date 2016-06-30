@@ -165,6 +165,11 @@ angular.module('siyfion.sfTypeahead', [])
         element.bind('typeahead:asyncreceive', function() {
           scope.$emit('typeahead:asyncreceive');
         });
+        
+        // Propagate the render event
+        element.bind('typeahead:render', function() {
+          scope.$emit('typeahead:render');
+        });        
 
         // Propagate the cursorchanged event
         element.bind('typeahead:cursorchanged', function(event, suggestion, dataset) {
