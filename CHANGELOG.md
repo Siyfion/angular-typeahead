@@ -1,5 +1,8 @@
 # CHANGELOG
 
+# v0.3.2
+* Adds render event
+
 # v0.3.1
 * Removed the "all-events" binding, as the code didn't work.
 
