@@ -130,24 +130,24 @@ angular.module('siyfion.sfTypeahead', [])
         }
 
         // Update the value binding when a value is manually selected from the dropdown.
-        element.bind('typeahead:selected', function(object, suggestion, dataset) {
+        element.bind('typeahead:select', function(object, suggestion, dataset) {
           updateScope(object, suggestion, dataset);
           scope.$emit('typeahead:selected', suggestion, dataset);
         });
 
         // Update the value binding when a query is autocompleted.
-        element.bind('typeahead:autocompleted', function(object, suggestion, dataset) {
+        element.bind('typeahead:autocomplete', function(object, suggestion, dataset) {
           updateScope(object, suggestion, dataset);
           scope.$emit('typeahead:autocompleted', suggestion, dataset);
         });
 
         // Propagate the opened event
-        element.bind('typeahead:opened', function() {
+        element.bind('typeahead:open', function() {
           scope.$emit('typeahead:opened');
         });
 
         // Propagate the closed event
-        element.bind('typeahead:closed', function() {
+        element.bind('typeahead:close', function() {
           scope.$emit('typeahead:closed');
         });
 
@@ -172,7 +172,7 @@ angular.module('siyfion.sfTypeahead', [])
         });        
 
         // Propagate the cursorchanged event
-        element.bind('typeahead:cursorchanged', function(event, suggestion, dataset) {
+        element.bind('typeahead:cursorchange', function(event, suggestion, dataset) {
           scope.$emit('typeahead:cursorchanged', event, suggestion, dataset);
         });
       }
