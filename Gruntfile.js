@@ -1,6 +1,8 @@
 "use strict";
 module.exports = function (grunt) {
 
+  var karma_browser = process.env.KARMA_BROWSER || 'Chrome';
+
   // Project configuration.
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -20,6 +22,7 @@ module.exports = function (grunt) {
     karma: {
       default: {
         configFile: 'karma.conf.js',
+        browsers: [ karma_browser ]
       }
     },
     jshint: {
