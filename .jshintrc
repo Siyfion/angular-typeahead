@@ -1,0 +1,24 @@
+{
+  "eqnull": true,
+  "undef": true,
+  "unused": true,
+  "strict": "global",
+  "globals": {
+    "angular": true,
+    "jasmine": true,
+    "describe": true,
+    "xdescribe": true,
+    "before": true,
+    "beforeEach": true,
+    "after": true,
+    "afterEach": true,
+    "it": true,
+    "xit": true,
+    "it": true,
+    "inject": true,
+    "expect": true,
+    "spyOn": true,
+    "module": true,
+    "fail": true
+  }
+}

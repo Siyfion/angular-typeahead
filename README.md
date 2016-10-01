@@ -3,8 +3,6 @@ sfTypeahead: A Twitter Typeahead directive
 
 A simple Angular.js directive wrapper around the Twitter Typeahead library.
 
-License: [MIT](http://www.opensource.org/licenses/mit-license.php)
-
 Getting Started
 ---------------
 
@@ -19,7 +17,7 @@ Other methods:
 **Note:** angular-typeahead.js has dependencies on the following libraries:
 * [typeahead.js][typeahead.js] v0.10.x
 * [bloodhound.js][typeahead.js] v0.10.x
-* [Angular.js][angularjs]
+* [Angular.js][angularjs] v1.2.0+
 * [jQuery][jquery] v1.9+
 
 All of which must be loaded before *angular-typeahead.js*.
@@ -39,95 +37,19 @@ However if I may make one request, **no "+1" comments, either add something wort
 Usage
 ---------------
 
-The bare bones:
-
 ```html
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="typeahead.js"></script>
-<script type="text/javascript" src="bloodhound.js"></script>
-<script type="text/javascript" src="angular.js"></script>
-<script type="text/javascript" src="angular-typeahead.js"></script>
-<script>
-  // Create the application and import the siyfion.sfTypeahead dependency.
-  angular.module('myApp', ['siyfion.sfTypeahead']);
-</script>
-<body ng-app="myApp">
-    <input type="text" class="sfTypeahead" options="exampleOptions" datasets="exampleData" ng-model="foo">
-    <!-- OR USING AN ATTRIBUTE -->
-    <input type="text" options="exampleOptions" datasets="multiExample" ng-model="foo" sf-typeahead>
-<body>
+<input type="text" datasets="datasets" options="options" ng-model="model" editable="editable" sf-typeahead />
 ```
 
-```javascript
-// Define your own controller somewhere...
-function MyCtrl($scope) {
+See the Plnkr [LIVE DEMO][plnkr] for a complete integrated example.
 
-  // Instantiate the bloodhound suggestion engine
-  var numbers = new Bloodhound({
-    datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: [
-      { num: 'one' },
-      { num: 'two' },
-      { num: 'three' },
-      { num: 'four' },
-      { num: 'five' },
-      { num: 'six' },
-      { num: 'seven' },
-      { num: 'eight' },
-      { num: 'nine' },
-      { num: 'ten' }
-    ]
-  });
+### Parameters
 
-  // initialize the bloodhound suggestion engine
-  numbers.initialize();
-
-  // Allows the addition of local datum
-  // values to a pre-existing bloodhound engine.
-  $scope.addValue = function () {
-    numbers.add({
-      num: 'twenty'
-    });
-  };
-
-  // Typeahead options object
-  $scope.exampleOptions = {
-    highlight: true
-  };
-
-  // Single dataset example
-  $scope.exampleData = {
-    displayKey: 'num',
-    source: numbers.ttAdapter()
-  };
-
-  // Multiple dataset example
-  $scope.multiExample = [
-    {
-      name: 'nba',
-      displayKey: 'team',
-      source: nba.ttAdapter()   // Note the nba Bloodhound engine isn't really defined here.
-    },
-    {
-      name: 'nhl',
-      displayKey: 'team',
-      source: nhl.ttAdapter()   // Note the nhl Bloodhound engine isn't really defined here.
-    }
-  ];
-
-  $scope.foo = null;
-};
-```
-
-Options
----------------
-The following attributes are available to provide additional configuration.
-
-| Option | Default | Description |
+| Parameter | Default | Description |
 |---------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| suggestionKey | null | The key on the selected typeahead suggestion object for which the corresponding value is used as the model's new value. If null, the entire suggestion object/value is set as the model. |
-
+| datasets | {} | One or an array of twitter typeahead [datasets][twitter datasets].  |
+| options | {} | [Options][twitter options] parameter passed directly to twitter typeahead.  |
+| editable | true | Boolean. If false, the model value does not update as text input is typed but only takes datum values when the input is autocompleted.  |
 
 
 <!-- assets -->
@@ -140,3 +62,5 @@ The following attributes are available to provide additional configuration.
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
 [plnkr]: http://plnkr.co/edit/cMvm7Z4REuIP69Uk4Tzz?p=preview
+[twitter datasets]: https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets
+[twitter options]: https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options

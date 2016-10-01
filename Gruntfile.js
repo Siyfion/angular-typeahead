@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function (grunt) {
 
   // Project configuration.
@@ -6,29 +7,63 @@ module.exports = function (grunt) {
     clean: {
       files: {
         src: [
-          'tmp_angular-typeahead.js'
+          'build/'
         ]
-      }
-    },
-    ngmin: {
-      files: {
-        src: 'angular-typeahead.js',
-        dest: 'tmp_angular-typeahead.js'
       }
     },
     uglify: {
       build: {
-        src: 'angular-typeahead.js',
-        dest: 'angular-typeahead.min.js'
+        src: 'dist/angular-typeahead.js',
+        dest: 'dist/angular-typeahead.min.js'
       }
-    }
+    },
+    karma: {
+      default: {
+        configFile: 'karma.conf.js',
+      }
+    },
+    jshint: {
+      default: {
+        options: {
+          jshintrc: true,
+        },
+        files: {
+          src: [
+            'angular-typeahead.js',
+            'angular-typeahead.spec.js']
+        }
+      }
+    },
+    umd: {
+      default: {
+        options: {
+          src: 'angular-typeahead.js',
+          dest: 'dist/angular-typeahead.js'
+        }
+      }
+    },
+    watch: {
+      default: {
+        files: [
+          'angular-typeahead.js',
+          'angular-typeahead.spec.js'],
+        tasks: ['test'],
+        options: {
+          spawn: false,
+        },
+      },
+    },
   });
 
   // Load the plugins that provide the tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-ngmin');
   grunt.loadNpmTasks('grunt-contrib-uglify');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-karma');
+  grunt.loadNpmTasks('grunt-contrib-watch');
+  grunt.loadNpmTasks('grunt-umd');
 
   // Default task(s).
-  grunt.registerTask('default', ['ngmin', 'uglify', 'clean']);
+  grunt.registerTask('test', ['karma', 'jshint']);
+  grunt.registerTask('default', ['test', 'umd', 'uglify', 'clean']);
 };
