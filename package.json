@@ -1,9 +1,8 @@
 {
   "name": "angular-typeahead",
-  "version": "0.3.2",
+  "version": "1.0.0-alpha",
   "subdomain": "Siyfion",
-  "private": true,
-  "main": "angular-typeahead.js",
+  "main": "dist/angular-typeahead.js",
   "author": "siyfion@gmail.com",
   "description": "An Angular.js wrapper around the Twitter Typeahead library.",
   "scripts": {
@@ -14,6 +13,10 @@
     {
       "name": "Simon Mansfield",
       "email": "siyfion@gmail.com"
+    },
+    {
+      "name": "Hadrien Milano",
+      "email": "hadrien.milano@gmail.com"
     }
   ],
   "keywords": [

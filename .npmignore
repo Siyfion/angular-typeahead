@@ -1,0 +1,9 @@
+# Ignore everything related to building and testing
+build/
+bower.json
+Gruntfile.js
+karma.conf.js
+
+# Ignore source files to avoid confusion (users should always use what's in dist/)
+angular-typeahead.js
+angular-typeahead.spec.js
