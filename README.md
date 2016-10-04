@@ -27,13 +27,6 @@ Demo
 
 Please feel free to play with the Plnkr: [LIVE DEMO][plnkr]
 
-Issues
----------------
-
-Please feel free to add any issues to the GitHub issue tracker.
-
-However if I may make one request, **no "+1" comments, either add something worthwhile, or nothing at all**.
-
 Usage
 ---------------
 
@@ -50,6 +43,35 @@ See the Plnkr [LIVE DEMO][plnkr] for a complete integrated example.
 | datasets | {} | One or an array of twitter typeahead [datasets][twitter datasets].  |
 | options | {} | [Options][twitter options] parameter passed directly to twitter typeahead.  |
 | editable | true | Boolean. If false, the model value does not update as text input is typed but only takes datum values when the input is autocompleted.  |
+
+Contributing
+---------------
+
+Please feel free to add any issues to the GitHub issue tracker.
+
+Contributions are welcome but please try to adhere to the folowing guidelines:
+
+### Testing
+
+Any code you write should be tested. Test the "happy path" as well as corner cases.
+Code cannot be merged in master unless it achieves 100% coverage on everything.
+To run tests automatically when a file changes, run `npm run watch`.
+
+Tests run in Chrome by default, but you can override this by setting the `KARMA_BROWSER`
+environment variable.
+Example:
+```sh
+KARMA_BROWSER=Firefox npm run watch
+KARMA_BROWSER=PhantomJS npm run watch
+```
+
+If you are not sure how to test something, ask about it in your pull request description.
+
+### JSHint
+
+I recommend you use a jshint plugin in your editor, this will help you spot errors
+faster and make it easier to write clean code that is going to pass QA.
+In any case, `npm run watch` runs jshint on the code whenever you save.
 
 
 <!-- assets -->

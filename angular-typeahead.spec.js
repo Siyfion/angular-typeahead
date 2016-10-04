@@ -5,7 +5,7 @@ describe('$typeahead', function() {
   it('provides a proxy to the jquery function `typeahead` to let tests hook it',
       inject(function($typeahead) {
     var subject = {
-      typeahead: jasmine.createSpy()
+      typeahead: jasmine.createSpy('typeahead')
     };
     $typeahead(subject, 'jasmine', 'test');
     expect(subject.typeahead).toHaveBeenCalledWith('jasmine', 'test');
@@ -86,6 +86,20 @@ describe('sfTypeahead', function() {
     }));
   });
   describe('initialize', function() {
+    it('recreates the typeahead when options attribute changes',
+        inject(function($rootScope, $compile) {
+      $scope = createScope($rootScope);
+      $element = $compile('<input type="text" sf-typeahead datasets="datasets" options="options" ng-model="model"/>')($scope);
+      $scope.$digest();
+      $scope.options = {
+        highlight: false
+      };
+      $scope.$digest();
+      expect($element.hasClass('tt-input')).toBe(true);
+      expect($typeahead).toHaveBeenCalledWith($element, 'destroy');
+      expect($typeahead).toHaveBeenCalledWith($element, $scope.options, [$scope.datasets]);
+      expect($element.val()).toEqual('simple value');
+    }));
     it('recreates the typeahead when datasets attribute changes',
         inject(function($rootScope, $compile) {
       $scope = createScope($rootScope);

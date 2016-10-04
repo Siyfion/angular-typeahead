@@ -1,9 +1,17 @@
 "use strict";
 angular.module('siyfion.sfTypeahead', [])
-  .value('$typeahead', function(subject) {
-    subject.typeahead.apply(subject, Array.prototype.slice.call(arguments, 1));
-  })
-  .directive('sfTypeahead', ['$typeahead', function ($typeahead) {
+
+// Inject the typeahead jquery plugin through angular to make it easier to unit
+// test the library.
+// Usage:
+//  instead of `$element.typeahead(foo, bar)`
+//  do `$typeahead($element, foo, bar)`
+.value('$typeahead', function(subject) {
+  subject.typeahead.apply(subject, Array.prototype.slice.call(arguments, 1));
+})
+
+// The actual directive
+.directive('sfTypeahead', ['$typeahead', function ($typeahead) {
 
   return {
     restrict: 'AC',       // Only apply on an attribute or class
@@ -11,19 +19,22 @@ angular.module('siyfion.sfTypeahead', [])
     scope: {
       datasets: '=',
       options: '=',
-      editable: '='   // cannot use '<' if we want to support angular 1.2.x
+      editable: '='   // We cannot use '<' if we want to support angular 1.2.x
     },
     link: function(scope, element, attrs, ngModel) {
       var initialized = false;
       var options;
       var datasets;
+      // Unsubscribe handle for the scope watcher
       var unsubscribe = null;
+      // Remembers whether the `datasets` parameter provided was an array or an object.
       var datasetsIsArray;
 
       // Create the typeahead on the element
       initialize();
 
-      watchScope();
+      // Watch for changes on datasets
+      watchDatasets();
 
       // Parses and validates what is going to be set to model (called when: ngModel.$setViewValue(value))
       ngModel.$parsers.push(function(fromView) {
@@ -33,7 +44,7 @@ angular.module('siyfion.sfTypeahead', [])
         // hasn't changed at all (the 'val' property doesn't update until
         // after the event loop finishes), then we can bail out early and keep
         // the current model value.
-        if (angular.isObject(ngModel.$modelValue) && fromView === getModelValue(ngModel.$modelValue)) {
+        if (angular.isObject(ngModel.$modelValue) && fromView === getDatumValue(ngModel.$modelValue)) {
           return ngModel.$modelValue;
         }
 
@@ -47,7 +58,7 @@ angular.module('siyfion.sfTypeahead', [])
       // Formats what is going to be displayed (called when: $scope.model = { object })
       ngModel.$formatters.push(function(fromModel) {
         if (angular.isObject(fromModel)) {
-          fromModel = getModelValue(fromModel);
+          fromModel = getDatumValue(fromModel);
         }
 
         if (!fromModel) {
@@ -58,13 +69,13 @@ angular.module('siyfion.sfTypeahead', [])
         return fromModel;
       });
 
-      function watchScope() {
+      function watchDatasets() {
         unsubscribe = datasetsIsArray ?
-            scope.$watchCollection('datasets', watchHandler) :
-            scope.$watch('datasets', watchHandler);
+            scope.$watchCollection('datasets', datasetsChangeHandler) :
+            scope.$watch('datasets', datasetsChangeHandler);
       }
 
-      function watchHandler(newValue, oldValue) {
+      function datasetsChangeHandler(newValue, oldValue) {
         if (angular.equals(newValue, oldValue)) {
           return;
         }
@@ -72,7 +83,7 @@ angular.module('siyfion.sfTypeahead', [])
         initialize();
         if (datasetsIsArray !== oldDatasetsIsArray) {
           unsubscribe();
-          watchScope();
+          watchDatasets();
         }
       }
 
@@ -87,6 +98,7 @@ angular.module('siyfion.sfTypeahead', [])
 
         if (!initialized) {
           $typeahead(element, options, datasets);
+          scope.$watch('options', initialize);
           initialized = true;
         } else {
           var value = element.val();
@@ -96,11 +108,12 @@ angular.module('siyfion.sfTypeahead', [])
         }
       }
 
-      function getModelValue(model) {
+      // Returns the string to be displayed given some datum
+      function getDatumValue(datum) {
         for (var i in datasets) {
           var dataset = datasets[i];
           var displayKey = dataset.displayKey || 'value';
-          var value = (angular.isFunction(displayKey) ? displayKey(model) : model[displayKey]) || '';
+          var value = (angular.isFunction(displayKey) ? displayKey(datum) : datum[displayKey]) || '';
           return value;
         }
       }
