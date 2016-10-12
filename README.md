@@ -46,7 +46,7 @@ See the Plnkr [LIVE DEMO][plnkr] for a complete integrated example.
 |---------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | datasets | {} | One or an array of twitter typeahead [datasets][twitter datasets].  |
 | options | {} | [Options][twitter options] parameter passed directly to twitter typeahead.  |
-| editable | true | Boolean. If false, the model value does not update as text input is typed but only takes datum values when the input is autocompleted.  |
+| allow-custom | true | Boolean. If false, the model value can not take custom values as text is typed in the input field.  |
 
 Contributing
 ---------------
@@ -87,6 +87,6 @@ In any case, `npm run watch` runs jshint on the code whenever you save.
 [jQuery]: http://jquery.com/
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
-[plnkr]: http://plnkr.co/edit/cMvm7Z4REuIP69Uk4Tzz?p=preview
+[plnkr]: http://plnkr.co/edit/k2JWu6tZMXwkB8Oi9CSv?p=preview
 [twitter datasets]: https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets
 [twitter options]: https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options

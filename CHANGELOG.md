@@ -10,6 +10,7 @@ The code has been rewritten almost from scratch with a focus on code quality and
 - Values set directly to $scope.model are no longer validated against the suggestions.
 - Remove ambiguous "suggestionKey" parameter
 - moved options not related to tt to top level
+- renamed "editable" option to "allow-custom"
 
 ## v0.3.2
 * Adds render event

@@ -214,11 +214,11 @@ describe('sfTypeahead', function() {
       expect($element.typeahead('val')).toEqual('');
     }));
   });
-  describe('editable', function() {
+  describe('allowCustom', function() {
     beforeEach(inject(function($rootScope, $compile) {
       $scope = createScope($rootScope);
-      $scope.editable = false;
-      $element = $compile('<input id="typeahead" type="text" editable="editable" ng-model="model" datasets="datasets" sf-typeahead />')($scope);
+      $scope.allowCustom = false;
+      $element = $compile('<input id="typeahead" type="text" allow-custom="allowCustom" ng-model="model" datasets="datasets" sf-typeahead />')($scope);
       $scope.$digest();
     }));
     it('forbids modification of the model from user input', function() {
@@ -227,7 +227,7 @@ describe('sfTypeahead', function() {
       expect($scope.model).toEqual('simple value');
     });
     it('can be changed at runtime', function() {
-      $scope.editable = true;
+      $scope.allowCustom = true;
       $scope.$digest();
       expect($element.val()).toEqual('simple value');
       $element.val('other value').trigger('input');

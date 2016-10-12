@@ -19,7 +19,7 @@ angular.module('siyfion.sfTypeahead', [])
     scope: {
       datasets: '=',
       options: '=',
-      editable: '='   // We cannot use '<' if we want to support angular 1.2.x
+      allowCustom: '='   // We cannot use '<' if we want to support angular 1.2.x
     },
     link: function(scope, element, attrs, ngModel) {
       var initialized = false;
@@ -48,7 +48,7 @@ angular.module('siyfion.sfTypeahead', [])
           return ngModel.$modelValue;
         }
 
-        if (!isEditable() && typeof fromView === 'string') {
+        if (!isCustomAllowed() && typeof fromView === 'string') {
           return ngModel.$modelValue;
         }
 
@@ -118,8 +118,8 @@ angular.module('siyfion.sfTypeahead', [])
         }
       }
 
-      function isEditable() {
-        return scope.editable === undefined || !!scope.editable;
+      function isCustomAllowed() {
+        return scope.allowCustom === undefined || !!scope.allowCustom;
       }
 
       function updateScope (suggestion) {
