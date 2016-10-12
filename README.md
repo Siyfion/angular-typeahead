@@ -1,6 +1,10 @@
 sfTypeahead: A Twitter Typeahead directive
 =================
 
+[![Build Status](https://travis-ci.org/Siyfion/angular-typeahead.svg?branch=master)](https://travis-ci.org/Siyfion/angular-typeahead)
+![Coverage: 100%](https://github.com/Siyfion/angular-typeahead/blob/master/resources/coverage.svg)
+[![Version](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead.svg)](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead)
+
 A simple Angular.js directive wrapper around the Twitter Typeahead library.
 
 Getting Started
