@@ -1,18 +1,18 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module unless amdModuleId is set
-    define([], function () {
-      return (factory());
+    define('angular-typeahead', ["angular","typeahead.js"], function (a0,b1) {
+      return (factory(a0,b1));
     });
   } else if (typeof exports === 'object') {
     // Node. Does not work with strict CommonJS, but
     // only CommonJS-like environments that support module.exports,
     // like Node.
-    module.exports = factory();
+    module.exports = factory(require("angular"),require("typeahead.js"));
   } else {
-    factory();
+    factory(angular);
   }
-}(this, function () {
+}(this, function (angular) {
 
 "use strict";
 angular.module('siyfion.sfTypeahead', [])
