@@ -174,13 +174,13 @@ describe('sfTypeahead', function() {
       expect($scope.model).toEqual('other value');
       expect($replicated.val()).toEqual('other value');
     });
-    it('is updated when on typeahead:selected', inject(function() {
-      $typeahead.val('other value').trigger('typeahead:selected', 'other value');
+    it('is updated when on typeahead:select', inject(function() {
+      $typeahead.val('other value').trigger('typeahead:select', 'other value');
       expect($scope.model).toEqual('other value');
       expect($replicated.val()).toEqual('other value');
     }));
-    it('is updated when on typeahead:autocompleted', function() {
-      $typeahead.val('other value').trigger('typeahead:autocompleted', 'other value');
+    it('is updated when on typeahead:autocomplete', function() {
+      $typeahead.val('other value').trigger('typeahead:autocomplete', 'other value');
       expect($scope.model).toEqual('other value');
       expect($replicated.val()).toEqual('other value');
     });
@@ -302,19 +302,19 @@ describe('sfTypeahead', function() {
       expect($scope.model).toEqual('other value');
       expect($replicated.val()).toEqual('');
     });
-    it('is updated on typeahead:selected', inject(function() {
-      $typeahead.val('other value').trigger('typeahead:selected', { my_value: 'other value' });
+    it('is updated on typeahead:select', inject(function() {
+      $typeahead.val('other value').trigger('typeahead:select', { my_value: 'other value' });
       expect($scope.model).toEqual({ my_value: 'other value' });
       expect($replicated.val()).toEqual('other value');
     }));
-    it('is updated on typeahead:autocompleted', function() {
-      $typeahead.val('other value').trigger('typeahead:autocompleted', { my_value: 'other value' });
+    it('is updated on typeahead:autocomplete', function() {
+      $typeahead.val('other value').trigger('typeahead:autocomplete', { my_value: 'other value' });
       expect($scope.model).toEqual({ my_value: 'other value' });
       expect($replicated.val()).toEqual('other value');
     });
     it('prevents unintended model updates (#63)',
         function() {
-      $typeahead.val('other value').trigger('typeahead:autocompleted', { my_value: 'other value' });
+      $typeahead.val('other value').trigger('typeahead:autocomplete', { my_value: 'other value' });
       expect($scope.model).toEqual({ my_value: 'other value' });
       $typeahead.trigger('input');
       expect($scope.model).toEqual({ my_value: 'other value' });
@@ -328,24 +328,49 @@ describe('sfTypeahead', function() {
       $element = $compile('<input id="typeahead" type="text" ng-model="model" datasets="datasets" sf-typeahead />')($scope);
       $scope.$digest();
     }));
-    it('forwards typeahead:selected', function() {
-      $scope.$on('typeahead:selected', handler);
-      $element.trigger('typeahead:selected', 'some value');
+    it('forwards typeahead:active', function() {
+      $scope.$on('typeahead:active', handler);
+      $element.trigger('typeahead:active', 'some value');
       expect(handler).toHaveBeenCalled();
     });
-    it('forwards typeahead:autocompleted', function() {
-      $scope.$on('typeahead:autocompleted', handler);
-      $element.trigger('typeahead:autocompleted', 'some value');
+    it('forwards typeahead:idle', function() {
+      $scope.$on('typeahead:idle', handler);
+      $element.trigger('typeahead:idle', 'some value');
       expect(handler).toHaveBeenCalled();
     });
-    it('forwards typeahead:opened', function() {
-      $scope.$on('typeahead:opened', handler);
-      $element.trigger('typeahead:opened');
+    it('forwards typeahead:open', function() {
+      $scope.$on('typeahead:open', handler);
+      $element.trigger('typeahead:open');
       expect(handler).toHaveBeenCalled();
     });
-    it('forwards typeahead:closed', function() {
-      $scope.$on('typeahead:closed', handler);
-      $element.trigger('typeahead:closed', 'some value');
+    it('forwards typeahead:close', function() {
+      $scope.$on('typeahead:close', handler);
+      $element.trigger('typeahead:close', 'some value');
+      expect(handler).toHaveBeenCalled();
+    });
+    it('forwards typeahead:change', function() {
+      $scope.$on('typeahead:change', handler);
+      $element.trigger('typeahead:change', 'some value');
+      expect(handler).toHaveBeenCalled();
+    });
+    it('forwards typeahead:render', function() {
+      $scope.$on('typeahead:render', handler);
+      $element.trigger('typeahead:render');
+      expect(handler).toHaveBeenCalled();
+    });
+    it('forwards typeahead:select', function() {
+      $scope.$on('typeahead:select', handler);
+      $element.trigger('typeahead:select', 'some value');
+      expect(handler).toHaveBeenCalled();
+    });
+    it('forwards typeahead:autocomplete', function() {
+      $scope.$on('typeahead:autocomplete', handler);
+      $element.trigger('typeahead:autocomplete', 'some value');
+      expect(handler).toHaveBeenCalled();
+    });
+    it('forwards typeahead:cursorchange', function() {
+      $scope.$on('typeahead:cursorchange', handler);
+      $element.trigger('typeahead:cursorchange');
       expect(handler).toHaveBeenCalled();
     });
     it('forwards typeahead:asyncrequest', function() {
@@ -361,16 +386,6 @@ describe('sfTypeahead', function() {
     it('forwards typeahead:asyncreceive', function() {
       $scope.$on('typeahead:asyncreceive', handler);
       $element.trigger('typeahead:asyncreceive');
-      expect(handler).toHaveBeenCalled();
-    });
-    it('forwards typeahead:render', function() {
-      $scope.$on('typeahead:render', handler);
-      $element.trigger('typeahead:render');
-      expect(handler).toHaveBeenCalled();
-    });
-    it('forwards typeahead:cursorchanged', function() {
-      $scope.$on('typeahead:cursorchanged', handler);
-      $element.trigger('typeahead:cursorchanged');
       expect(handler).toHaveBeenCalled();
     });
   });

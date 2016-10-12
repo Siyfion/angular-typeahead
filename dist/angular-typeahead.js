@@ -144,52 +144,34 @@ angular.module('siyfion.sfTypeahead', [])
         });
       }
 
+      function forwardEvent(name) {
+        element.bind(name, function() {
+          scope.$emit(name, Array.prototype.slice. call(arguments, 1));
+        });
+      }
+
       // Update the value binding when a value is manually selected from the dropdown.
-      element.bind('typeahead:selected', function(evt, suggestion, dataset) {
+      element.bind('typeahead:select', function(evt, suggestion, dataset) {
         updateScope(suggestion);
-        scope.$emit('typeahead:selected', suggestion, dataset);
+        scope.$emit('typeahead:select', suggestion, dataset);
       });
 
       // Update the value binding when a query is autocompleted.
-      element.bind('typeahead:autocompleted', function(evt, suggestion, dataset) {
+      element.bind('typeahead:autocomplete', function(evt, suggestion, dataset) {
         updateScope(suggestion);
-        scope.$emit('typeahead:autocompleted', suggestion, dataset);
+        scope.$emit('typeahead:autocomplete', suggestion, dataset);
       });
 
-      // Propagate the opened event
-      element.bind('typeahead:opened', function() {
-        scope.$emit('typeahead:opened');
-      });
-
-      // Propagate the closed event
-      element.bind('typeahead:closed', function() {
-        scope.$emit('typeahead:closed');
-      });
-
-      // Propagate the asyncrequest event
-      element.bind('typeahead:asyncrequest', function() {
-        scope.$emit('typeahead:asyncrequest');
-      });
-
-      // Propagate the asynccancel event
-      element.bind('typeahead:asynccancel', function() {
-        scope.$emit('typeahead:asynccancel');
-      });
-
-      // Propagate the asyncreceive event
-      element.bind('typeahead:asyncreceive', function() {
-        scope.$emit('typeahead:asyncreceive');
-      });
-
-      // Propagate the render event
-      element.bind('typeahead:render', function() {
-        scope.$emit('typeahead:render');
-      });
-
-      // Propagate the cursorchanged event
-      element.bind('typeahead:cursorchanged', function(event, suggestion, dataset) {
-        scope.$emit('typeahead:cursorchanged', event, suggestion, dataset);
-      });
+      forwardEvent('typeahead:active');
+      forwardEvent('typeahead:idle');
+      forwardEvent('typeahead:open');
+      forwardEvent('typeahead:close');
+      forwardEvent('typeahead:change');
+      forwardEvent('typeahead:render');
+      forwardEvent('typeahead:cursorchange');
+      forwardEvent('typeahead:asyncrequest');
+      forwardEvent('typeahead:asynccancel');
+      forwardEvent('typeahead:asyncreceive');
     }
   };
 }]);
