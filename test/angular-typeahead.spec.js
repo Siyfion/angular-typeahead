@@ -1,5 +1,17 @@
 "use strict";
 
+var module = angular.mock.module;
+var inject = angular.mock.inject;
+
+describe('dependencies', function() {
+  describe('typeahead.js', function() {
+    it('is correctly loaded', inject(function($compile, $rootScope) {
+      var elem = $compile('<input type="text">')($rootScope.$new());
+      expect(angular.isFunction(elem.typeahead)).toBe(true);
+    }));
+  });
+});
+
 describe('$typeahead', function() {
   beforeEach(module('siyfion.sfTypeahead'));
   it('provides a proxy to the jquery function `typeahead` to let tests hook it',
