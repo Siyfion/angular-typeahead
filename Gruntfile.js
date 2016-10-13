@@ -41,7 +41,14 @@ module.exports = function (grunt) {
       default: {
         options: {
           src: 'angular-typeahead.js',
-          dest: 'dist/angular-typeahead.js'
+          dest: 'dist/angular-typeahead.js',
+          amdModuleId: 'angular-typeahead',
+          deps: {
+            default: ['angular'],
+            global: ['angular'],
+            amd: ['angular', 'typeahead.js'],
+            cjs: ['angular', 'typeahead.js']
+          }
         }
       }
     },

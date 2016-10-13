@@ -3,6 +3,7 @@ build/
 bower.json
 Gruntfile.js
 karma.conf.js
+resources/
 
 # Ignore source files to avoid confusion (users should always use what's in dist/)
 angular-typeahead.js
