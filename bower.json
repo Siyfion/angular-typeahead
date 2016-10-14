@@ -1,14 +1,16 @@
 {
   "name": "angular-typeahead",
-  "version": "1.0.0-alpha",
-  "main": "./angular-typeahead.js",
+  "version": "1.0.0",
+  "main": "./dist/angular-typeahead.js",
   "ignore": [
-    "build/",
+    "build",
+    "test",
+    "resources",
+    ".travis.yml",
     "package.json",
     "Gruntfile.js",
     "karma.conf.js",
-    "angular-typeahead.js",
-    "angular-typeahead.spec.js"
+    "angular-typeahead.js"
   ],
   "dependencies": {
     "typeahead.js": "~0.11.1"

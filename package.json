@@ -1,6 +1,6 @@
 {
   "name": "angular-typeahead",
-  "version": "1.0.0-alpha",
+  "version": "1.0.0",
   "subdomain": "Siyfion",
   "main": "dist/angular-typeahead.js",
   "author": "siyfion@gmail.com",
@@ -16,6 +16,9 @@
     "dist": "grunt",
     "pretest": "require-self"
   },
+  "files": [
+    "dist"
+  ],
   "contributors": [
     {
       "name": "Simon Mansfield",
@@ -32,7 +35,7 @@
     "typeahead"
   ],
   "devDependencies": {
-    "angular": "1.2.x",
+    "angular": "1.5.x",
     "angular-mocks": "^1.5.8",
     "browserify": "^13.1.0",
     "grunt": "1.0.1",

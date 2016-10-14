@@ -2,7 +2,7 @@ sfTypeahead: A Twitter Typeahead directive
 =================
 
 [![Build Status](https://travis-ci.org/Siyfion/angular-typeahead.svg?branch=master)](https://travis-ci.org/Siyfion/angular-typeahead)
-![Coverage: 100%](https://github.com/Siyfion/angular-typeahead/blob/master/resources/coverage.svg)
+![Coverage: 100%](https://raw.githubusercontent.com/Siyfion/angular-typeahead/master/resources/coverage.svg)
 [![Version](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead.svg)](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead)
 [![dependencies Status](https://david-dm.org/Siyfion/angular-typeahead/status.svg)](https://david-dm.org/Siyfion/angular-typeahead)
 
@@ -17,11 +17,11 @@ Get angular-typeahead from your favorite source:
 * Install with [npm][npm]: `$ npm install angular-typeahead`
 * Download latest *[angular-typeahead.js][angular-typeahead.js]* or *[angular-typeahead.min.js][angular-typeahead.min.js]*.
 
-**Note:** angular-typeahead depends on [Angular.js][angularjs] and [typeahead.js][typeahead.js]. Make sure dependencies are met in your environment:
+**Note:** angular-typeahead supports [Angular.js][angularjs] v1.2.x through v1.5.x and depends on [typeahead.js][typeahead.js] v0.11.x. Make sure dependencies are met in your setup:
 
 * **global**: include jQuery, angularjs and typeahead.js before *angular-typeahead.js*.
-* **cjs** (node, browserify): angular-typeahead explicitly *requires* `angular` and `typeahead.js`. (note: with browserify, include jquery.js and typeahead.js externally, because angular does not define a dependency on jquery)
-* **amd** (require.js): angular-typeahead explicitly *requires* `angular` and declares itself as `angular-typeahead`. Note that `typeahead.js` does not work well with AMD.js, you may find [this fix](https://github.com/twitter/typeahead.js/issues/1211#issuecomment-129189829) useful.
+* **commonJS** (node, browserify): angular-typeahead explicitly *requires* `angular` and `typeahead.js`. (note: with browserify, include jquery.js and typeahead.js externally, because angular does not define a dependency on jquery)
+* **amd** (require.js): angular-typeahead explicitly *requires* `angular` and declares itself as `angular-typeahead`. Note that `typeahead.js` does not work well with AMD.js, you may find [this workaround](https://github.com/twitter/typeahead.js/issues/1211#issuecomment-129189829) useful.
 
 Demo
 ---------------
