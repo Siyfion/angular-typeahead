@@ -1,9 +1,21 @@
 # CHANGELOG
 
-# v0.3.2
+## v1.0.0 - Major refactoring
+
+The code has been rewritten almost from scratch with a focus on code quality and testing. This will make future development easier and limit the number of bugs on the long term. Beware that regressions are likely!
+
+- Built files are now wrapped in [UMD](https://github.com/umdjs/umd)
+- Add unit tests, jshint and continuous integration
+- Moved built files to `dist/` folder
+- Values set directly to $scope.model are no longer validated against the suggestions.
+- Remove ambiguous "suggestionKey" parameter
+- moved options not related to tt to top level
+- renamed "editable" option to "allow-custom"
+
+## v0.3.2
 * Adds render event
 
-# v0.3.1
+## v0.3.1
 * Removed the "all-events" binding, as the code didn't work.
 
 ## v0.3.0

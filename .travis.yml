@@ -1,0 +1,15 @@
+language: node_js
+node_js:
+  - "4.4"
+before_script:
+  - export DISPLAY=:99.0
+  - sh -e /etc/init.d/xvfb start
+  - npm install angular@$ANGULAR_VERSION
+script:
+  - KARMA_BROWSER=Firefox npm test
+  - KARMA_BROWSER=PhantomJS npm test # Webkit - should work like Chrome
+env:
+  - ANGULAR_VERSION=v1.2.x
+  - ANGULAR_VERSION=v1.3.x
+  - ANGULAR_VERSION=v1.4.x
+  - ANGULAR_VERSION=v1.5.x

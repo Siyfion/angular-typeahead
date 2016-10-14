@@ -1,25 +1,17 @@
-###########################
-#WebStorm Files
-###########################
+# Editor files
 .idea/
-
-###########################
-#Sublime Files
-###########################
 angular-typeahead.sublime-workspace
+angular-typeahead.sublime-project
 
-###########################
-#NPM Files
-###########################
+# NPM Files
 node_modules/
 npm-debug.log
 
-###########################
-#Bower Files
-###########################
+# Bower Files
 bower_components
 
-###########################
-#Other Files
-###########################
-tmp_angular-typeahead.js
+# Build artifacts
+build/
+
+# System crap
+.DS_Store

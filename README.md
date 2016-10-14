@@ -1,142 +1,90 @@
 sfTypeahead: A Twitter Typeahead directive
 =================
 
-A simple Angular.js directive wrapper around the Twitter Typeahead library.
+[![Build Status](https://travis-ci.org/Siyfion/angular-typeahead.svg?branch=master)](https://travis-ci.org/Siyfion/angular-typeahead)
+![Coverage: 100%](https://github.com/Siyfion/angular-typeahead/blob/master/resources/coverage.svg)
+[![Version](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead.svg)](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead)
+[![dependencies Status](https://david-dm.org/Siyfion/angular-typeahead/status.svg)](https://david-dm.org/Siyfion/angular-typeahead)
 
-License: [MIT](http://www.opensource.org/licenses/mit-license.php)
+A simple Angular.js directive wrapper around the Twitter Typeahead library.
 
 Getting Started
 ---------------
 
-How you acquire angular-typeahead is up to you.
+Get angular-typeahead from your favorite source:
 
-Preferred method:
 * Install with [Bower][bower]: `$ bower install angular-typeahead`
-
-Other methods:
+* Install with [npm][npm]: `$ npm install angular-typeahead`
 * Download latest *[angular-typeahead.js][angular-typeahead.js]* or *[angular-typeahead.min.js][angular-typeahead.min.js]*.
 
-**Note:** angular-typeahead.js has dependencies on the following libraries:
-* [typeahead.js][typeahead.js] v0.10.x
-* [bloodhound.js][typeahead.js] v0.10.x
-* [Angular.js][angularjs]
-* [jQuery][jquery] v1.9+
+**Note:** angular-typeahead depends on [Angular.js][angularjs] and [typeahead.js][typeahead.js]. Make sure dependencies are met in your environment:
 
-All of which must be loaded before *angular-typeahead.js*.
+* **global**: include jQuery, angularjs and typeahead.js before *angular-typeahead.js*.
+* **cjs** (node, browserify): angular-typeahead explicitly *requires* `angular` and `typeahead.js`. (note: with browserify, include jquery.js and typeahead.js externally, because angular does not define a dependency on jquery)
+* **amd** (require.js): angular-typeahead explicitly *requires* `angular` and declares itself as `angular-typeahead`. Note that `typeahead.js` does not work well with AMD.js, you may find [this fix](https://github.com/twitter/typeahead.js/issues/1211#issuecomment-129189829) useful.
 
 Demo
 ---------------
 
 Please feel free to play with the Plnkr: [LIVE DEMO][plnkr]
 
-Issues
+Usage
+---------------
+
+```html
+<input type="text" datasets="datasets" options="options" ng-model="model" editable="editable" sf-typeahead />
+```
+
+See the Plnkr [LIVE DEMO][plnkr] for a complete integrated example.
+
+### Parameters
+
+| Parameter | Default | Description |
+|---------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| datasets | {} | One or an array of twitter typeahead [datasets][twitter datasets].  |
+| options | {} | [Options][twitter options] parameter passed directly to twitter typeahead.  |
+| allow-custom | true | Boolean. If false, the model value can not take custom values as text is typed in the input field.  |
+
+Contributing
 ---------------
 
 Please feel free to add any issues to the GitHub issue tracker.
 
-However if I may make one request, **no "+1" comments, either add something worthwhile, or nothing at all**.
+Contributions are welcome but please try to adhere to the folowing guidelines:
 
-Usage
----------------
+### Testing
 
-The bare bones:
+Any code you write should be tested. Test the "happy path" as well as corner cases.
+Code cannot be merged in master unless it achieves 100% coverage on everything.
+To run tests automatically when a file changes, run `npm run watch`.
 
-```html
-<script type="text/javascript" src="jquery.js"></script>
-<script type="text/javascript" src="typeahead.js"></script>
-<script type="text/javascript" src="bloodhound.js"></script>
-<script type="text/javascript" src="angular.js"></script>
-<script type="text/javascript" src="angular-typeahead.js"></script>
-<script>
-  // Create the application and import the siyfion.sfTypeahead dependency.
-  angular.module('myApp', ['siyfion.sfTypeahead']);
-</script>
-<body ng-app="myApp">
-    <input type="text" class="sfTypeahead" options="exampleOptions" datasets="exampleData" ng-model="foo">
-    <!-- OR USING AN ATTRIBUTE -->
-    <input type="text" options="exampleOptions" datasets="multiExample" ng-model="foo" sf-typeahead>
-<body>
+Tests run in Chrome by default, but you can override this by setting the `KARMA_BROWSER`
+environment variable.
+Example:
+```sh
+KARMA_BROWSER=Firefox npm run watch
+KARMA_BROWSER=PhantomJS npm run watch
 ```
 
-```javascript
-// Define your own controller somewhere...
-function MyCtrl($scope) {
+If you are not sure how to test something, ask about it in your pull request description.
 
-  // Instantiate the bloodhound suggestion engine
-  var numbers = new Bloodhound({
-    datumTokenizer: function(d) { return Bloodhound.tokenizers.whitespace(d.num); },
-    queryTokenizer: Bloodhound.tokenizers.whitespace,
-    local: [
-      { num: 'one' },
-      { num: 'two' },
-      { num: 'three' },
-      { num: 'four' },
-      { num: 'five' },
-      { num: 'six' },
-      { num: 'seven' },
-      { num: 'eight' },
-      { num: 'nine' },
-      { num: 'ten' }
-    ]
-  });
+### JSHint
 
-  // initialize the bloodhound suggestion engine
-  numbers.initialize();
-
-  // Allows the addition of local datum
-  // values to a pre-existing bloodhound engine.
-  $scope.addValue = function () {
-    numbers.add({
-      num: 'twenty'
-    });
-  };
-
-  // Typeahead options object
-  $scope.exampleOptions = {
-    highlight: true
-  };
-
-  // Single dataset example
-  $scope.exampleData = {
-    displayKey: 'num',
-    source: numbers.ttAdapter()
-  };
-
-  // Multiple dataset example
-  $scope.multiExample = [
-    {
-      name: 'nba',
-      displayKey: 'team',
-      source: nba.ttAdapter()   // Note the nba Bloodhound engine isn't really defined here.
-    },
-    {
-      name: 'nhl',
-      displayKey: 'team',
-      source: nhl.ttAdapter()   // Note the nhl Bloodhound engine isn't really defined here.
-    }
-  ];
-
-  $scope.foo = null;
-};
-```
-
-Options
----------------
-The following attributes are available to provide additional configuration.
-
-| Option | Default | Description |
-|---------------|---------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| suggestionKey | null | The key on the selected typeahead suggestion object for which the corresponding value is used as the model's new value. If null, the entire suggestion object/value is set as the model. |
-
+I recommend you use a jshint plugin in your editor, this will help you spot errors
+faster and make it easier to write clean code that is going to pass QA.
+In any case, `npm run watch` runs jshint on the code whenever you save.
 
 
 <!-- assets -->
-[angular-typeahead.js]: https://raw.github.com/Siyfion/angular-typeahead/master/angular-typeahead.js
-[angular-typeahead.min.js]: https://raw.github.com/Siyfion/angular-typeahead/master/angular-typeahead.min.js
+[angular-typeahead.js]: https://raw.github.com/Siyfion/angular-typeahead/master/dist/angular-typeahead.js
+[angular-typeahead.min.js]: https://raw.github.com/Siyfion/angular-typeahead/master/dist/angular-typeahead.min.js
 
 <!-- links to third party projects -->
 [bower]: http://twitter.github.com/bower/
+[npm]: https://www.npmjs.com/
 [jQuery]: http://jquery.com/
 [angularjs]: http://angularjs.org/
 [typeahead.js]: http://twitter.github.io/typeahead.js/
-[plnkr]: http://plnkr.co/edit/cMvm7Z4REuIP69Uk4Tzz?p=preview
+[plnkr]: http://plnkr.co/edit/k2JWu6tZMXwkB8Oi9CSv?p=preview
+[twitter datasets]: https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#datasets
+[twitter options]: https://github.com/twitter/typeahead.js/blob/master/doc/jquery_typeahead.md#options
