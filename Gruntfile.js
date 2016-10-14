@@ -55,7 +55,7 @@ module.exports = function (grunt) {
           deps: {
             default: ['angular'],
             global: ['angular'],
-            amd: ['angular', 'typeahead.js'],
+            amd: ['angular'],
             cjs: ['angular', 'typeahead.js']
           }
         }

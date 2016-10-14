@@ -21,7 +21,7 @@ Get angular-typeahead from your favorite source:
 
 * **global**: include jQuery, angularjs and typeahead.js before *angular-typeahead.js*.
 * **cjs** (node, browserify): angular-typeahead explicitly *requires* `angular` and `typeahead.js`. (note: with browserify, include jquery.js and typeahead.js externally, because angular does not define a dependency on jquery)
-* **amd** (require.js): angular-typeahead explicitly *requires* `angular` and `typeahead.js` and declares itself as `angular-typeahead`.
+* **amd** (require.js): angular-typeahead explicitly *requires* `angular` and declares itself as `angular-typeahead`. Note that `typeahead.js` does not work well with AMD.js, you may find [this fix](https://github.com/twitter/typeahead.js/issues/1211#issuecomment-129189829) useful.
 
 Demo
 ---------------

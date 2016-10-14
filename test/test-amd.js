@@ -24,16 +24,28 @@ require.config({
 
   paths: {
     'angular-typeahead': 'dist/angular-typeahead',
+    'typeahead': 'node_modules/typeahead.js/dist/typeahead.bundle',
     'angular': 'node_modules/angular/angular',
-    'angular-mocks': 'node_modules/angular-mocks/angular-mocks'
+    'angular-mocks': 'node_modules/angular-mocks/angular-mocks',
+    'jquery': 'node_modules/jquery/dist/jquery'
   },
 
   shim: {
     'angular': {
       exports: 'angular'
+    },
+    'angular-mocks': {
+      deps: [ 'angular' ]
+    },
+    'jquery': {
+      exports: '$'
     }
   },
 
   // we have to kickoff jasmine, as it is asynchronous
-  callback: window.__karma__.start
+  callback: function() {
+    /* globals $: true */
+    require.s.contexts._.registry['typeahead.js'].factory( $ );
+    window.__karma__.start();
+  }
 });

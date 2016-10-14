@@ -3,12 +3,12 @@
 var conf = require('./karma.shared.conf.js')();
 
 conf.files = [
-  'node_modules/jquery/dist/jquery.min.js',
-  'node_modules/typeahead.js/dist/typeahead.jquery.js',
-  'node_modules/angular/angular.js',
-  'node_modules/angular-mocks/angular-mocks.js',
-  'build/angular-typeahead.spec.js',
-  'dist/angular-typeahead.js'
+  'node_modules/jquery/dist/jquery.js',
+  'node_modules/typeahead.js/dist/typeahead.bundle.js',
+  {pattern: 'node_modules/angular/angular.js', included: false},
+  {pattern: 'node_modules/angular-mocks/angular-mocks.js', included: false},
+  {pattern: 'dist/angular-typeahead.js', included: false},
+  'build/angular-typeahead.spec.js'
 ];
 conf.frameworks.push('requirejs');
 conf.files.push('test/test-amd.js');

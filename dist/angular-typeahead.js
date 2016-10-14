@@ -1,7 +1,7 @@
 (function (root, factory) {
   if (typeof define === 'function' && define.amd) {
     // AMD. Register as an anonymous module unless amdModuleId is set
-    define('angular-typeahead', ["angular","typeahead.js"], function (a0,b1) {
+    define('angular-typeahead', ["angular"], function (a0,b1) {
       return (factory(a0,b1));
     });
   } else if (typeof exports === 'object') {
