@@ -11,6 +11,7 @@ The code has been rewritten almost from scratch with a focus on code quality and
 - Remove ambiguous "suggestionKey" parameter
 - moved options not related to tt to top level
 - renamed "editable" option to "allow-custom"
+- Renamed events to match typeahead event names (see [#82](https://github.com/Siyfion/angular-typeahead/pull/82))
 
 ## v0.3.2
 * Adds render event
