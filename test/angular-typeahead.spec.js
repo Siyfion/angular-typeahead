@@ -111,6 +111,7 @@ describe('sfTypeahead', function() {
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), 'destroy');
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), $scope.options, [$scope.datasets]);
       expect($element.val()).toEqual('simple value');
+      expect($scope.model).toEqual('simple value');
     }));
     it('recreates the typeahead when datasets attribute changes',
         inject(function($rootScope, $compile) {
@@ -125,6 +126,7 @@ describe('sfTypeahead', function() {
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), 'destroy');
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), $scope.options, [$scope.datasets]);
       expect($element.val()).toEqual('simple value');
+      expect($scope.model).toEqual('simple value');
     }));
     it('recreates the typeahead when datasets array attribute changes',
         inject(function($rootScope, $compile) {
@@ -140,6 +142,7 @@ describe('sfTypeahead', function() {
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), 'destroy');
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), $scope.options, $scope.datasets);
       expect($element.val()).toEqual('simple value');
+      expect($scope.model).toEqual('simple value');
     }));
     it('recreates the typeahead when datasets array becomes a single dataset',
         inject(function($rootScope, $compile) {
@@ -155,6 +158,7 @@ describe('sfTypeahead', function() {
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), 'destroy');
       expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), $scope.options, [$scope.datasets]);
       expect($element.val()).toEqual('simple value');
+      expect($scope.model).toEqual('simple value');
     }));
   });
   describe('model', function() {
