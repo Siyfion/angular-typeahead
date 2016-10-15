@@ -50,6 +50,31 @@ describe('sfTypeahead', function() {
     $provide.value('$typeahead', $typeahead);
   }));
 
+  describe('Behaviour in a form', function() {
+    it('sets the proper form flags when there is data', inject(function($rootScope, $compile) {
+        $scope = createScope($rootScope);
+        $compile('<form name="theForm">' +
+            '<input ng-model="model" type="text" options="options" datasets="datasets" required sf-typeahead>' +
+            '</form>')($scope);
+        $scope.$digest();
+        expect($scope.theForm.$pristine).toEqual(true);
+        expect($scope.theForm.$dirty).toEqual(false);
+        expect($scope.theForm.$valid).toEqual(true);
+        expect($scope.theForm.$invalid).toEqual(false);
+    }));
+    it('sets the proper form flags when there is no data', inject(function($rootScope, $compile) {
+        $scope = createScope($rootScope);
+        $scope.model = undefined;
+        $compile('<form name="theForm">' +
+            '<input ng-model="model" type="text" options="options" datasets="datasets" required sf-typeahead>' +
+            '</form>')($scope);
+        $scope.$digest();
+        expect($scope.theForm.$pristine).toEqual(true);
+        expect($scope.theForm.$dirty).toEqual(false);
+        expect($scope.theForm.$valid).toEqual(false);
+        expect($scope.theForm.$invalid).toEqual(true);
+    }));
+  });
   describe('Directive syntax', function() {
     it('is compiled on class name', inject(function($rootScope, $compile) {
       $scope = createScope($rootScope);

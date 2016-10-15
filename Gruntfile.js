@@ -112,7 +112,7 @@ module.exports = function (grunt) {
   });
 
   // Tasks
-  grunt.registerTask('test:lite', ['require-self', 'karma:global', 'jshint']);
+  grunt.registerTask('test:lite', ['require-self', 'umd:test', 'karma:global', 'jshint']);
   grunt.registerTask('test', ['require-self', 'umd:test', 'karma', 'jshint']);
   grunt.registerTask('default', ['test', 'umd:src', 'uglify', 'clean']);
 };
