@@ -1,6 +1,6 @@
 # CHANGELOG
 
-## v1.0.1
+## v1.0.2
 
 - Prevent $dirty flag on a form from being set to false on initialization
 
