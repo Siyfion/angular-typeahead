@@ -1,6 +1,6 @@
 {
   "name": "angular-typeahead",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "subdomain": "Siyfion",
   "main": "dist/angular-typeahead.js",
   "author": "siyfion@gmail.com",
@@ -13,7 +13,7 @@
   "scripts": {
     "test": "grunt test",
     "watch": "grunt watch",
-    "dist": "grunt"
+    "dist": "grunt dist"
   },
   "files": [
     "dist"
