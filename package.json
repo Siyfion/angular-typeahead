@@ -13,8 +13,7 @@
   "scripts": {
     "test": "grunt test",
     "watch": "grunt watch",
-    "dist": "grunt",
-    "pretest": "require-self"
+    "dist": "grunt"
   },
   "files": [
     "dist"
