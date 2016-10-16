@@ -14,10 +14,18 @@ module.exports = function (grunt) {
         ]
       }
     },
+    copy: {
+      files: {
+        expand: true,
+        src: ['angular-typeahead.js', 'angular-typeahead.min.js'],
+        cwd: 'build',
+        dest: 'dist/'
+      }
+    },
     uglify: {
       build: {
-        src: 'dist/angular-typeahead.js',
-        dest: 'dist/angular-typeahead.min.js'
+        src: 'build/angular-typeahead.js',
+        dest: 'build/angular-typeahead.min.js'
       }
     },
     karma: {
@@ -50,7 +58,7 @@ module.exports = function (grunt) {
       src: {
         options: {
           src: 'angular-typeahead.js',
-          dest: 'dist/angular-typeahead.js',
+          dest: 'build/angular-typeahead.js',
           amdModuleId: 'angular-typeahead',
           deps: {
             default: ['angular'],
@@ -87,6 +95,7 @@ module.exports = function (grunt) {
 
   // Load the plugins that provide the tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
@@ -100,19 +109,22 @@ module.exports = function (grunt) {
 
     // Get the name of the module in the current working directory.
     var cwd = process.cwd();
-    var pkg = require(path.join(cwd, 'package.json'));
-    var name = pkg.name;
 
     // Compute the location and content for the pseudo-module.
-    var modulePath = path.join(cwd, 'node_modules', name + '.js');
-    var moduleText = "module.exports = require('..');";
+    var modulePath = path.join(cwd, 'node_modules/angular-typeahead.js');
+    var moduleText = "module.exports = require('../build/angular-typeahead.js');";
 
     // Create the pseudo-module.
     fs.writeFileSync(modulePath, moduleText);
   });
 
+  // Utility Tasks
+  grunt.registerTask('_build', ['require-self', 'umd']);
+  grunt.registerTask('_test', ['karma', 'jshint']);
+
+
   // Tasks
-  grunt.registerTask('test:lite', ['require-self', 'umd:test', 'karma:global', 'jshint']);
-  grunt.registerTask('test', ['require-self', 'umd:test', 'karma', 'jshint']);
-  grunt.registerTask('default', ['test', 'umd:src', 'uglify', 'clean']);
+  grunt.registerTask('test:lite', ['_build', 'karma:global', 'jshint']);
+  grunt.registerTask('test', ['_build', '_test']);
+  grunt.registerTask('dist', ['_build', 'uglify', 'copy']);
 };

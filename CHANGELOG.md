@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- Prevent $dirty flag on a form from being set to false on initialization
+
 ## v1.0.0 - Major refactoring
 
 The code has been rewritten almost from scratch with a focus on code quality and testing. This will make future development easier and limit the number of bugs on the long term. Beware that regressions are likely!

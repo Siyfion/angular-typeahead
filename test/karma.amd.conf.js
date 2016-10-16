@@ -7,7 +7,7 @@ conf.files = [
   'node_modules/typeahead.js/dist/typeahead.bundle.js',
   {pattern: 'node_modules/angular/angular.js', included: false},
   {pattern: 'node_modules/angular-mocks/angular-mocks.js', included: false},
-  {pattern: 'dist/angular-typeahead.js', included: false},
+  {pattern: 'build/angular-typeahead.js', included: false},
   'build/angular-typeahead.spec.js'
 ];
 conf.frameworks.push('requirejs');
