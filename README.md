@@ -2,7 +2,7 @@ sfTypeahead: A Twitter Typeahead directive
 =================
 
 [![Build Status](https://travis-ci.org/Siyfion/angular-typeahead.svg?branch=master)](https://travis-ci.org/Siyfion/angular-typeahead)
-![Coverage: 100%](https://raw.githubusercontent.com/Siyfion/angular-typeahead/master/resources/coverage.svg)
+![Coverage: 100%](https://cdn.rawgit.com/Siyfion/angular-typeahead/master/resources/coverage.svg)
 [![Version](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead.svg)](https://badge.fury.io/gh/Siyfion%2Fangular-typeahead)
 [![dependencies Status](https://david-dm.org/Siyfion/angular-typeahead/status.svg)](https://david-dm.org/Siyfion/angular-typeahead)
 
