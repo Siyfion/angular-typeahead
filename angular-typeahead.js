@@ -101,10 +101,8 @@ angular.module('siyfion.sfTypeahead', [])
           scope.$watch('options', initialize);
           initialized = true;
         } else {
-          var value = element.val();
           $typeahead(element, 'destroy');
           $typeahead(element, options, datasets);
-          ngModel.$setViewValue(value);
         }
       }
 

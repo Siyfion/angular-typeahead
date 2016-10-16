@@ -6,12 +6,10 @@ module.exports = function() {
 
   // Get the name of the module in the current working directory.
   var cwd = process.cwd();
-  var pkg = require(path.join(cwd, 'package.json'));
-  var name = pkg.name;
 
   // Compute the location and content for the pseudo-module.
-  var modulePath = path.join(cwd, 'node_modules', name + '.js');
-  var moduleText = "module.exports = require('..');";
+  var modulePath = path.join(cwd, 'node_modules/angular-typeahead.js');
+  var moduleText = "module.exports = require('../build/angular-typeahead.js');";
 
   // Create the pseudo-module.
   fs.writeFileSync(modulePath, moduleText);

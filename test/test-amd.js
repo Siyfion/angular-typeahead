@@ -23,7 +23,7 @@ require.config({
   deps: allTestFiles,
 
   paths: {
-    'angular-typeahead': 'dist/angular-typeahead',
+    'angular-typeahead': 'build/angular-typeahead',
     'typeahead': 'node_modules/typeahead.js/dist/typeahead.bundle',
     'angular': 'node_modules/angular/angular',
     'angular-mocks': 'node_modules/angular-mocks/angular-mocks',

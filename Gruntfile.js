@@ -14,10 +14,18 @@ module.exports = function (grunt) {
         ]
       }
     },
+    copy: {
+      files: {
+        expand: true,
+        src: ['angular-typeahead.js', 'angular-typeahead.min.js'],
+        cwd: 'build',
+        dest: 'dist/'
+      }
+    },
     uglify: {
       build: {
-        src: 'dist/angular-typeahead.js',
-        dest: 'dist/angular-typeahead.min.js'
+        src: 'build/angular-typeahead.js',
+        dest: 'build/angular-typeahead.min.js'
       }
     },
     karma: {
@@ -50,7 +58,7 @@ module.exports = function (grunt) {
       src: {
         options: {
           src: 'angular-typeahead.js',
-          dest: 'dist/angular-typeahead.js',
+          dest: 'build/angular-typeahead.js',
           amdModuleId: 'angular-typeahead',
           deps: {
             default: ['angular'],
@@ -87,16 +95,22 @@ module.exports = function (grunt) {
 
   // Load the plugins that provide the tasks.
   grunt.loadNpmTasks('grunt-contrib-clean');
+  grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-umd');
 
-  grunt.registerTask('require-self', 'Sets-up requireself', require('./tasks/require-self'));
+  grunt.registerTask('require-self', 'Fixes require calls to self for tests', require('./tasks/require-self'));
+
+  // Utility Tasks
+  grunt.registerTask('_build', ['require-self', 'umd']);
+  grunt.registerTask('_test', ['karma', 'jshint']);
+
 
   // Tasks
-  grunt.registerTask('test:lite', ['require-self', 'karma:global', 'jshint']);
-  grunt.registerTask('test', ['require-self', 'umd:test', 'karma', 'jshint']);
-  grunt.registerTask('default', ['test', 'umd:src', 'uglify', 'clean']);
+  grunt.registerTask('test:lite', ['_build', 'karma:global', 'jshint']);
+  grunt.registerTask('test', ['_build', '_test']);
+  grunt.registerTask('dist', ['_build', 'uglify', 'copy']);
 };

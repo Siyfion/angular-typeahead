@@ -13,8 +13,7 @@
   "scripts": {
     "test": "grunt test",
     "watch": "grunt watch",
-    "dist": "grunt",
-    "pretest": "require-self"
+    "dist": "grunt"
   },
   "files": [
     "dist"
@@ -40,6 +39,7 @@
     "browserify": "^13.1.0",
     "grunt": "1.0.1",
     "grunt-contrib-clean": "~1.0.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-uglify": "~2.0.0",
     "grunt-contrib-watch": "^1.0.0",
@@ -56,7 +56,6 @@
     "karma-requirejs": "^1.1.0",
     "karma-spec-reporter": "0.0.26",
     "karma-threshold-reporter": "^0.1.15",
-    "require-self": "^0.1.0",
     "requirejs": "^2.3.2",
     "typeahead.js": "^0.11.1",
     "watchify": "^3.7.0"
