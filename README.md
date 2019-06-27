@@ -50,7 +50,7 @@ Contributing
 
 Please feel free to add any issues to the GitHub issue tracker.
 
-Contributions are welcome but please try to adhere to the folowing guidelines:
+Contributions are welcome but please try to adhere to the following guidelines:
 
 ### Testing
 
