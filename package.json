@@ -34,7 +34,7 @@
     "typeahead"
   ],
   "devDependencies": {
-    "angular": "1.5.x",
+    "angular": "1.8.x",
     "angular-mocks": "^1.5.8",
     "browserify": "^13.1.0",
     "grunt": "1.0.1",
