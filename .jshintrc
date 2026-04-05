@@ -1,4 +1,5 @@
 {
+  "browser": true,
   "eqnull": true,
   "undef": true,
   "unused": true,

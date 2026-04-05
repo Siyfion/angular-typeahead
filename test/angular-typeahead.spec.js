@@ -169,6 +169,41 @@ describe('sfTypeahead', function() {
       expect($element.val()).toEqual('simple value');
       expect($scope.model).toEqual('simple value');
     }));
+    it('restores focus after re-initialization when input was focused (#93)',
+        inject(function($rootScope, $compile) {
+      $scope = createScope($rootScope);
+      var container = document.createElement('div');
+      document.body.appendChild(container);
+      $element = $compile('<input type="text" sf-typeahead datasets="datasets" options="options" ng-model="model"/>')($scope);
+      container.appendChild($element[0]);
+      $scope.$digest();
+      $element[0].focus();
+      expect(document.activeElement).toBe($element[0]);
+      $scope.datasets = {
+        source: function() {}
+      };
+      $scope.$digest();
+      expect(document.activeElement).toBe($element[0]);
+      document.body.removeChild(container);
+    }));
+    it('does not steal focus after re-initialization when input was not focused (#93)',
+        inject(function($rootScope, $compile) {
+      $scope = createScope($rootScope);
+      var container = document.createElement('div');
+      document.body.appendChild(container);
+      var $other = $compile('<input type="text" id="other"/>')($scope);
+      $element = $compile('<input type="text" sf-typeahead datasets="datasets" options="options" ng-model="model"/>')($scope);
+      container.appendChild($other[0]);
+      container.appendChild($element[0]);
+      $scope.$digest();
+      $other[0].focus();
+      $scope.datasets = {
+        source: function() {}
+      };
+      $scope.$digest();
+      expect(document.activeElement).toBe($other[0]);
+      document.body.removeChild(container);
+    }));
     it('recreates the typeahead when datasets array becomes a single dataset',
         inject(function($rootScope, $compile) {
       $scope = createScope($rootScope);

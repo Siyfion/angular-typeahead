@@ -101,8 +101,12 @@ angular.module('siyfion.sfTypeahead', [])
           scope.$watch('options', initialize);
           initialized = true;
         } else {
+          var hasFocus = element[0] === document.activeElement;
           $typeahead(element, 'destroy');
           $typeahead(element, options, datasets);
+          if (hasFocus) {
+            element[0].focus();
+          }
         }
       }
 
