@@ -11,18 +11,19 @@ conf.files = [
   'angular-typeahead.js'
 ];
 conf.preprocessors['angular-typeahead.js'] = ['coverage'];
-conf.reporters.push('coverage', 'threshold');
+conf.reporters.push('coverage');
 
 conf.coverageReporter = {
   type : 'html',
-  dir : 'build/coverage/'
-};
-
-conf.thresholdReporter = {
-  statements: 100,
-  branches: 100,
-  functions: 100,
-  lines: 100
+  dir : 'build/coverage/',
+  check: {
+    global: {
+      statements: 100,
+      branches: 100,
+      functions: 100,
+      lines: 100
+    }
+  }
 };
 
 module.exports = function(config) {
