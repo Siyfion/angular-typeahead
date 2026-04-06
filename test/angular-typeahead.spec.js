@@ -204,6 +204,25 @@ describe('sfTypeahead', function() {
       expect(document.activeElement).toBe($other[0]);
       document.body.removeChild(container);
     }));
+    it('recreates the typeahead when single dataset becomes an array and detects array mutations',
+        inject(function($rootScope, $compile) {
+      $scope = createScope($rootScope);
+      // Start with a single object dataset
+      $element = $compile('<input type="text" sf-typeahead datasets="datasets" options="options" ng-model="model"/>')($scope);
+      $scope.$digest();
+      // Replace with an array — should trigger reinit and upgrade watcher to $watchCollection
+      $scope.datasets = [{ source: function() {} }];
+      $scope.$digest();
+      expect($element.hasClass('tt-input')).toBe(true);
+      expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), 'destroy');
+      expect($typeahead).toHaveBeenCalledWith(jasmine.anything(), $scope.options, $scope.datasets);
+      var callCountAfterSwitch = $typeahead.calls.count();
+      // Now push to the array — $watchCollection should detect the mutation
+      $scope.datasets.push({ source: function() {} });
+      $scope.$digest();
+      expect($typeahead.calls.count()).toBeGreaterThan(callCountAfterSwitch);
+      expect($element.val()).toEqual('simple value');
+    }));
     it('recreates the typeahead when datasets array becomes a single dataset',
         inject(function($rootScope, $compile) {
       $scope = createScope($rootScope);
@@ -302,6 +321,16 @@ describe('sfTypeahead', function() {
       $element.val('other value').trigger('input');
       expect($scope.model).toEqual('simple value');
     });
+    it('null behaves like false — forbids modification of model from user input',
+        inject(function($rootScope, $compile) {
+      $scope = createScope($rootScope);
+      $scope.allowCustom = null;
+      $element = $compile('<input id="typeahead" type="text" allow-custom="allowCustom" ng-model="model" datasets="datasets" sf-typeahead />')($scope);
+      $scope.$digest();
+      expect($element.val()).toEqual('simple value');
+      $element.val('other value').trigger('input');
+      expect($scope.model).toEqual('simple value');
+    }));
     it('can be changed at runtime', function() {
       $scope.allowCustom = true;
       $scope.$digest();
@@ -331,6 +360,18 @@ describe('sfTypeahead', function() {
       $scope.$digest();
       expect($element.val()).toEqual('simple value');
       expect($scope.datasets.displayKey).toHaveBeenCalledWith($scope.model);
+    }));
+    it('uses the displayKey from the first dataset when multiple are provided',
+        inject(function($rootScope, $compile) {
+      $scope = createScope($rootScope);
+      $scope.model = { first_key: 'from first', second_key: 'from second' };
+      $scope.datasets = [
+        { source: function() {}, displayKey: 'first_key' },
+        { source: function() {}, displayKey: 'second_key' }
+      ];
+      $element = $compile('<input id="typeahead" type="text" ng-model="model" datasets="datasets" sf-typeahead />')($scope);
+      $scope.$digest();
+      expect($element.val()).toEqual('from first');
     }));
     it('Is an empty string if the key is falsy', inject(function($rootScope, $compile) {
       $scope = createScope($rootScope);
@@ -439,10 +480,26 @@ describe('sfTypeahead', function() {
       $element.trigger('typeahead:select', 'some value');
       expect(handler).toHaveBeenCalled();
     });
+    it('forwards typeahead:select with suggestion and dataset arguments', function() {
+      $scope.$on('typeahead:select', handler);
+      $element.trigger('typeahead:select', ['selected value', 'my-dataset']);
+      expect(handler).toHaveBeenCalled();
+      var args = handler.calls.first().args;
+      expect(args[1]).toEqual('selected value');
+      expect(args[2]).toEqual('my-dataset');
+    });
     it('forwards typeahead:autocomplete', function() {
       $scope.$on('typeahead:autocomplete', handler);
       $element.trigger('typeahead:autocomplete', 'some value');
       expect(handler).toHaveBeenCalled();
+    });
+    it('forwards typeahead:autocomplete with suggestion and dataset arguments', function() {
+      $scope.$on('typeahead:autocomplete', handler);
+      $element.trigger('typeahead:autocomplete', ['completed value', 'my-dataset']);
+      expect(handler).toHaveBeenCalled();
+      var args = handler.calls.first().args;
+      expect(args[1]).toEqual('completed value');
+      expect(args[2]).toEqual('my-dataset');
     });
     it('forwards typeahead:cursorchange', function() {
       $scope.$on('typeahead:cursorchange', handler);
