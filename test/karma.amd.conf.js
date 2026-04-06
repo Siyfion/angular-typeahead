@@ -1,5 +1,4 @@
 'use strict';
-/* jshint node: true*/
 var conf = require('./karma.shared.conf.js')();
 
 conf.files = [

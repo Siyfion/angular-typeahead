@@ -1,5 +1,4 @@
 "use strict";
-/* jshint node:true */
 module.exports = function() {
   return {
     // base path that will be used to resolve all patterns (eg. files, exclude)

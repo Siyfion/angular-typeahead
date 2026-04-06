@@ -1,5 +1,4 @@
 'use strict';
-/* jshint browser: true */
 /* globals require: true */
 var allTestFiles = [];
 var TEST_REGEXP = /(spec|test)\.js$/i;

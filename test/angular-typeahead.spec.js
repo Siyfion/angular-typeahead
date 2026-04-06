@@ -111,7 +111,7 @@ describe('sfTypeahead', function() {
         $element = $compile('<input type="text" sf-typeahead datasets="datasets"/>')($scope);
         $scope.$digest();
         fail('expected an exception');
-      } catch(e) {
+      } catch(_e) {
         // success
       }
     }));
